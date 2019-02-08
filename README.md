@@ -72,6 +72,8 @@ improvement. Beat up the code instead!
 
 ## Variables
 
+## 変数
+
 ### Use meaningful variable names 
 
 ### 意味のある変数名を使う
@@ -304,18 +306,36 @@ function loadPages(count: number = 10) {
 
 ## Functions
 
+## 関数
+
 ### Function arguments (2 or fewer ideally)
+
+### 関数の引数 (理想は２つ以下)
 
 Limiting the amount of function parameters is incredibly important because it makes testing your function easier.
 Having more than three leads to a combinatorial explosion where you have to test tons of different cases with each separate argument.  
+
+関数における引数の数を制限することは非常に重要です。
+なぜならそれは貴方の関数のテストをシンプルにするからです。
+3つ以上になると、引数ごとの数だけ違うケースをテストしなければならず、組み合わせは爆発的に増加します。
 
 One or two arguments is the ideal case, and three should be avoided if possible. Anything more than that should be consolidated.
 Usually, if you have more than two arguments then your function is trying to do too much.
 In cases where it's not, most of the time a higher-level object will suffice as an argument.  
 
+理想的な引数の数は１〜２個であり、３つは避けるべきであり。
+それ以上の数になるならば結合するべきです。
+普通は2つ以上の引数がある場合、関数がやりすぎています。
+そうでない場合は、上位のオブジェクトを引数にすれば十分です。
+
 Consider using object literals if you are finding yourself needing a lot of arguments.  
 
+たくさんの引数が必要な場合はオブジェクトリテラルの利用を検討してください。
+
 To make it obvious what properties the function expects, you can use the [destructuring](https://basarat.gitbooks.io/typescript/docs/destructuring.html) syntax.
+
+関数がどのようなプロパティを持っているかを明示的にするた めに、[destructuring](https://basarat.gitbooks.io/typescript/docs/destructuring.html)構文を使うことができます。
+
 This has a few advantages:
 
 1. When someone looks at the function signature, it's immediately clear what properties are being used.
@@ -323,6 +343,15 @@ This has a few advantages:
 2. Destructuring also clones the specified primitive values of the argument object passed into the function. This can help prevent side effects. Note: objects and arrays that are destructured from the argument object are NOT cloned.
 
 3. TypeScript warns you about unused properties, which would be impossible without destructuring.
+
+これにはいくつかの利点があります:
+
+1. 誰かが関数の入出力を見た時に、どのプロパティが利用されているのかがすぐにわかります。
+
+2. 分割代入は、関数に渡された引数オブジェクトのプリミティブ型の値を複製します。これは副作用を防ぐのに役立ちます
+   注釈：引数オブジェクトから分割代入されたObjectとArrayは複製されません。
+
+3. TypeScriptは未使用のプロパティについて警告します、これは分割代入なしでは不可能でしょう。
 
 **Bad:**
 
@@ -351,6 +380,8 @@ createMenu({
 
 You can further improve readability by using [type aliases](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases):
 
+[タイプエイリアス](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases)を使うことで、さらに読みやすさ向上させることができます。
+
 ```ts
 
 type MenuOptions = { title: string, body: string, buttonText: string, cancellable: boolean };
@@ -371,7 +402,14 @@ createMenu({
 
 ### Functions should do one thing
 
+### 関数は１つのことだけを行うべきです
+
 This is by far the most important rule in software engineering. When functions do more than one thing, they are harder to compose, test, and reason about. When you can isolate a function to just one action, they can be refactored easily and your code will read much cleaner. If you take nothing else away from this guide other than this, you'll be ahead of many developers.
+
+これはソフトウェア・エンジニアリングにおいて、とても重要なルールです。
+関数が1つ以上のことをするとき、それは作成してテストし、推測することをより困難にします。
+関数を一つの振る舞いに分離することができれば、それらは簡単にリファクタリングすることができるようになり、あなたのコードはとても綺麗になります。
+このガイドのこの項以外を何もしなかったとしても、あなたは他の多くの開発者よりも一歩先を行ってるでしょう。
 
 **Bad:**
 
@@ -403,6 +441,8 @@ function isActiveClient(client: Client) {
 
 ### Function names should say what they do
 
+### 関数名は何をするべきか宣言するべきです。
+
 **Bad:**
 
 ```ts
@@ -413,6 +453,7 @@ function addToDate(date: Date, month: number): Date {
 const date = new Date();
 
 // It's hard to tell from the function name what is added
+// 何が追加されたかを、関数名から予測することができません。
 addToDate(date, 1);
 ```
 
@@ -431,7 +472,12 @@ addMonthToDate(date, 1);
 
 ### Functions should only be one level of abstraction
 
+### 関数は一つの抽象化に留めること。
+
 When you have more than one level of abstraction your function is usually doing too much. Splitting up functions leads to reusability and easier testing.
+
+あなたが１つ以上の抽象化を行っている時、関数はやりすぎています。
+機能を分割すれば再利用性とテスト用意性を向上させることができます。
 
 **Bad:**
 
@@ -499,16 +545,35 @@ function parse(tokens: Token[]): SyntaxTree {
 
 ### Remove duplicate code
 
+### 承服したコードは消す
+
 Do your absolute best to avoid duplicate code.
 Duplicate code is bad because it means that there's more than one place to alter something if you need to change some logic.  
+
+コードの重複を避ける事に最善を尽くしてください。
+重複したコードがあるということは、ロジックの変更を行う時に複数の箇所に同じ変更をする必要があるため、よくありません。
 
 Imagine if you run a restaurant and you keep track of your inventory: all your tomatoes, onions, garlic, spices, etc.
 If you have multiple lists that you keep this on, then all have to be updated when you serve a dish with tomatoes in them.
 If you only have one list, there's only one place to update!  
 
+貴方がレストランを経営していたとしましょう、そして在庫整理しているとします: トマト、玉ねぎ、ニンニク、スパイスなど、すべてあなたの物です。
+貴方がこの在庫を管理するリストを複数持っていた場合、トマト料理を提供したらリストすべてを更新する必要がでてきます。
+リストが１つだけなら、更新は１箇所済むでしょう！
+
 Oftentimes you have duplicate code because you have two or more slightly different things, that share a lot in common, but their differences force you to have two or more separate functions that do much of the same things. Removing duplicate code means creating an abstraction that can handle this set of different things with just one function/module/class.  
 
+共通点が多いが、２つ以上の小さな違いがあるために、コードが重複してしまうことはよくあります。
+しかしその結果、その違いによってほとんど同じことを行う２つ以上の関数が必要になってしまいます。
+重複したコードを削除するということは、一つの関数/モジュール/クラスで、これらの僅かに異なる一連のものを処理できる抽象化を作るということを意味します。
+
 Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself updating multiple places anytime you want to change one thing.
+
+抽象化を正しく行うことが重要です。
+そのため、SOLID の原則に従う必要があります。
+悪い抽象化はコードの重複よりも悪い場合があるので注意してください!
+とは言うものの、あなたが良い抽象化をすることができるのであれば、是非行うべきです！
+同じことをしないでください、そうしなければ何か一つを変更したい時、複数の場所を変更することになってしまいます。
 
 **Bad:**
 
@@ -586,6 +651,11 @@ function showEmployeeList(employee: Developer | Manager) {
 
 You should be critical about code duplication. Sometimes there is a tradeoff between duplicated code and increased complexity by introducing unnecessary abstraction. When two implementations from two different modules look similar but live in different domains, duplication might be acceptable and preferred over extracting the common code. The extracted common code in this case introduces an indirect dependency between the two modules.
 
+あなたはコードの重複について批判的であるべきです。
+不必要な抽象化を導入することによって、コードの重複と複雑さの増大との間にトレードオフがあることがあります。
+２つの異なるモジュールから呼ばれている２つの実装が似ているように見えても、異なるドメインに存在する場合は重複が許容され、共通コードの抽出よりも優先される場合があります。
+この時に抽出された共通コードは、２つのモジュールの間に間接的な依存関係をもたらします。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Set default objects with Object.assign or destructuring
@@ -628,6 +698,8 @@ createMenu({ body: 'Bar' });
 
 Alternatively, you can use destructuring with default values:
 
+デフォルト値を利用した分割代入を使う手もあるでしょう：
+
 ```ts
 type MenuConfig = { title?: string, body?: string, buttonText?: string, cancellable?: boolean };
 
@@ -641,12 +713,20 @@ createMenu({ body: 'Bar' });
 To avoid any side effects and unexpected behavior by passing in explicitly the `undefined` or `null` value, you can tell the TypeScript compiler to not allow it.
 See [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) option in TypeScript.
 
+明示的に `undefined` や `null` の値を渡して副作用や予期しない動作を避けるため、TypeScriptコンパイラにそれを許容させない設定もできます。
+TypeScriptの [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) 設定を参照
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Don't use flags as function parameters
 
+### 関数の引数にフラグは渡さない
+
 Flags tell your user that this function does more than one thing.
 Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+
+フラグは、この関数が複数の事をしていと利用者に伝えています。
+関数は一つのことをするべきなので、Boolean値によって異なる処理をしている場合は関数を別にします。
 
 **Bad:**
 
@@ -676,19 +756,33 @@ function createFile(name: string) {
 
 ### Avoid Side Effects (part 1)
 
+### 副作用を避ける（その１）
+
 A function produces a side effect if it does anything other than take a value in and return another value or values.
 A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.  
+
+関数が値を受け取り何かを返す以外の事をした場合、副作用を引き起こします。
+副作用とはファイルへの書き込みや、グローバル変数の変更、間違って全財産を見知らぬ他人に振り込んでしまうような事です。
 
 Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file.
 What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file.
 Have one service that does it. One and only one.  
 
+前に上げた例のように、ファイルに書き込む必要があるかもしれません。
+やるべきことは、それを行う場所を一つの場所に留めることです。
+特定のファイルに書き込む関数やクラスが複数存在しないようにしてください。
+それをする、唯一無二のサービスを作ります。
+
 The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
+重要なのは、構造を持たずオブジェクト間で状態を共有したり、任意のものに書き込み可能な可変データ型を使ったり、副作用が発生する場所を一箇所にしないなどの、一般的な落とし穴を避けることです。
+貴方がこれをできるようになれば、大多数の他のプログラマーより幸せになれるでしょう。
+
 
 **Bad:**
 
 ```ts
 // Global variable referenced by following function.
+// 以下の関数で利用されるグローバル変数
 let name = 'Robert C. Martin';
 
 function toBase64() {
@@ -697,8 +791,10 @@ function toBase64() {
 
 toBase64();
 // If we had another function that used this name, now it'd be a Base64 value
+// 変数 name を使用した別の関数がある場合は、その中身はBase64になります。
 
 console.log(name); // expected to print 'Robert C. Martin' but instead 'Um9iZXJ0IEMuIE1hcnRpbg=='
+                   // 'Robert C. Martin' と表示されるはずが、'Um9iZXJ0IEMuIE1hcnRpbg=='と表示されてしまう
 ```
 
 **Good:**
@@ -718,17 +814,41 @@ console.log(name);
 
 ### Avoid Side Effects (part 2)
 
+### 副作用を避ける(その２)
+
 In JavaScript, primitives are passed by value and objects/arrays are passed by reference. In the case of objects and arrays, if your function makes a change in a shopping cart array, for example, by adding an item to purchase, then any other function that uses that cart array will be affected by this addition. That may be great, however it can be bad too. Let's imagine a bad situation:  
+
+JavaScriptではプリミティブ型は値で渡され、オブジェクトや配列は参照によって渡されます。
+オブジェクトや配列の場合、商品を購入するなどしてショッピングカート配列を更新した場合、ショッピングカート配列を使用する他のすべての関数が追加の影響を受けてしまいます。
+それは素晴らしく思えますが、悪いことも起こります。
+悪い状況を想像してみましょう。
 
 The user clicks the "Purchase", button which calls a purchase function that spawns a network request and sends the cart array to the server. Because of a bad network connection, the purchase function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because it has a reference to a shopping cart array that the *addItemToCart* function modified by adding an unwanted item.  
 
+ユーザーが"購入"ボタンをクリックすると、ネットワークのリクエストを生成してカート配列をサーバーに送信する、*purchase*  関数が呼ばれます。
+ネットワークの状況が悪いため、*purchase* 関数は要求を繰り返し続けなければいけません。
+そして、ネットワークのリクエストが成功する前にユーザーがほしくないアイテムを"カートに入れる"ボタンを誤って押してしまったらどうなるでしょうか？
+ネットワークのリクエストが成功した時 *addItemToCart* 関数はカート配列への参照を持っていたため、 不要なアイテムをカート配列へ追加してしまいます、*purchase* 関数は間違って追加された商品を送信してしまいます。
+
 A great solution would be for the *addItemToCart* to always clone the cart, edit it, and return the clone. This ensures that no other functions that are holding onto a reference of the shopping cart will be affected by any changes.  
+
+良い解決策は  *addItemToCart* 関数が常にカートのクローンを作成し、それを編集してさらにクローンを返すことです。
+これで、ショッピングカート配列の参照を保持している他の関数が変更の影響を受けなくなります。
 
 Two caveats to mention to this approach:
 
 1. There might be cases where you actually want to modify the input object, but when you adopt this programming practice you will find that those cases are pretty rare. Most things can be refactored to have no side effects! (see [pure function](https://en.wikipedia.org/wiki/Pure_function))
 
 2. Cloning big objects can be very expensive in terms of performance. Luckily, this isn't a big issue in practice because there are great libraries that allow this kind of programming approach to be fast and not as memory intensive as it would be for you to manually clone objects and arrays.
+
+このアプローチにおける２つの注意点：
+
+1. 時には渡されたオブジェクト型を変更したい場合があるケースがありますが、このプログラミング手法を採用している場合にそういったケースは稀ということに気づくでしょう。
+そして殆どの場合、副作用がないようなリファクタリングを行うことが可能です。
+ ([純粋関数](https://en.wikipedia.org/wiki/Pure_function)を参照)
+
+2. 大きなオブジェクトの複製を作成すると、パフォーマンスの面で非常に高コストになってしまう可能性があります。幸運なことに、これは実際には大きな問題ではありません。
+なぜなら、手動でオブジェクトや配列を複製するのとは異なり、この種のプログラミング手法をより高速でメモリ使用量を抑えた素晴らしいライブラリがあるからです。
 
 **Bad:**
 
@@ -750,7 +870,17 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 
 ### Don't write to global functions
 
+### グローバル関数には書き込まなh
+
 Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a diff method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
+
+グローバルを汚染するのはJavaScriptのバッドプラクティスです。
+なぜなら他のライブラリをクラッシュさせるかもしれないし、あなたのAPIを使ってるユーザーは本番環境で例外が発生するまで何が起こってるか分からないからです。
+例を考えてみましょう。
+２つの配列の違いを差分を出すdiffメソッドを、既存JavaScriptのArrayに追加したらどうなりますか？
+新しい関数を `Array.prototype` に書くことはできますが、同じことをしている他のライブラリと衝突する可能性があります。
+他のライブラリが単に配列の最初の要素と最後の要素の違いを見つけるために `diff` を使っていたとしたらどうなるでしょうか。
+これが、グローバルの`Array`を拡張するより `class` を使ったほうが良い理由です。
 
 **Bad:**
 
@@ -784,7 +914,11 @@ class MyArray<T> extends Array<T> {
 
 ### Favor functional programming over imperative programming
 
+### 命令形プログラミングより関数型プログラミングを好む
+
 Favor this style of programming when you can.
+
+できるなら、あなたはこのプログラミングスタイルを好きになってください。
 
 **Bad:**
 
@@ -839,6 +973,8 @@ const totalOutput = contributions
 
 ### Encapsulate conditionals
 
+### 条件をカプセル化する。
+
 **Bad:**
 
 ```ts
@@ -862,6 +998,8 @@ if (canActivateService(subscription, account)) {
 **[⬆ back to top](#table-of-contents)**
 
 ### Avoid negative conditionals
+
+### 否定的な条件を避ける
 
 **Bad:**
 
@@ -891,7 +1029,17 @@ if (!isEmailUsed(node)) {
 
 ### Avoid conditionals
 
+### 条件を避ける
+
 This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
+
+これは一見不可能な作業に見えます。
+これを聞いた時、ほとんどの人は「if文を使わないとしたらどうすれば良いのか？」と言います。
+この答えは、多くの場合、同じタスクをするためにポリモーフィズム(多態性・多様性)を利用するということです。
+２つめの質問としてよくあるのは「素晴らしいことだと思うが、なんでそれをする必要があるのか？」といったものです。
+この答えは、私達が先に学んだクリーンコードの概念「関数はただ一つのことをするべき」だからです。
+貴方のクラスや関数がif文を持っている時、この関数は複数のことを示しています。
+関数は唯一つのことをやるということを覚えておいてください。
 
 **Bad:**
 
@@ -956,9 +1104,15 @@ class Cessna extends Airplane {
 
 ### Avoid type checking
 
+### 型チェックを避ける
+
 TypeScript is a strict syntactical superset of JavaScript and adds optional static type checking to the language.
 Always prefer to specify types of variables, parameters and return values to leverage the full power of TypeScript features.
 It makes refactoring more easier.
+
+TypeScriptはJavaScriptの厳密な構文スーパセットであり、言語へ静的型チェックのオプションを追加します。
+TypeScriptの機能を最大限に活用するには、常に変数、パラメータ、戻り値の方を指定する事をおすすめします。
+これはリファクタリングをより簡単にします。
 
 **Bad:**
 
@@ -986,13 +1140,22 @@ function travelToTexas(vehicle: Vehicle) {
 
 ### Don't over-optimize
 
+### 行き過ぎた最適化を避ける
+
 Modern browsers do a lot of optimization under-the-hood at runtime. A lot of times, if you are optimizing then you are just wasting your time. There are good [resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) for seeing where optimization is lacking. Target those in the meantime, until they are fixed if they can be.
+
+今のブラウザは実行時に内部で多くの最適化を行っています。
+貴方が最適化に多数の時間を費やしてるなら、あなたは時間を無駄にしています。
+最適化ができていないところを見るための良い[資料](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)があります。
+それらが最適化されるまでは、そこだけを最適化の対象にしてください。
 
 **Bad:**
 
 ```ts
 // On old browsers, each iteration with uncached `list.length` would be costly
 // because of `list.length` recomputation. In modern browsers, this is optimized.
+// 古いブラウザは、キャッシュされていない `list.length` を使った繰り返しはコストがかかるでしょう
+// なぜなら、呼ばれるたびに  `list.length`  が再計算されるから。 モダンブラウザは最適化されている
 for (let i = 0, len = list.length; i < len; i++) {
   // ...
 }
@@ -1008,10 +1171,14 @@ for (let i = 0; i < list.length; i++) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Remove dead code
+### 使っていないコードは削除する
 
 Dead code is just as bad as duplicate code. There's no reason to keep it in your codebase.
 If it's not being called, get rid of it! It will still be safe in your version history if you still need it.
+
+使われていないコードは重複したコードと同じくらい悪いものです。
+あなたのコードにそれを残しておく理由はありません。
+もし参照がないなら取り除きましょう！必要と感じていたとしてもバージョン管理ツールの履歴に残っているだけで十分でしょう。
 
 **Bad:**
 
