@@ -1,7 +1,11 @@
 # clean-code-typescript [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
 
 Clean Code concepts adapted for TypeScript.  
+TypeScriptの為のクリーンコード
+
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
+[clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)を見て閃きました。
+
 
 ## Table of Contents
 
@@ -27,16 +31,27 @@ Software engineering principles, from Robert C. Martin's book
 adapted for TypeScript. This is not a style guide. It's a guide to producing
 [readable, reusable, and refactorable](https://github.com/ryanmcdermott/3rs-of-software-architecture) software in TypeScript.
 
+Robert C. Martinの書籍 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)をTypeScriptに対応させたソフトウェア工学の原則です。 [翻訳書籍(amazonへのリンク)](https://www.amazon.co.jp/dp/B078HYWY5X)
+これはスタイルガイドではありません。
+TypeScriptで可読性が高く、再利用可能であり、リファクタブルなソフトウェアを生産するためのガイドラインです。
+
 Not every principle herein has to be strictly followed, and even fewer will be
 universally agreed upon. These are guidelines and nothing more, but they are
 ones codified over many years of collective experience by the authors of
 *Clean Code*.
+
+すべての原則に厳密に従う必要はありません、さらに一般に合意されているものはさらに少くなります。
+これらはガイドライン以上でしかありませんが、*Clean Code* の著者達による長年の経験を集めて文書化したものです。
 
 Our craft of software engineering is just a bit over 50 years old, and we are
 still learning a lot. When software architecture is as old as architecture
 itself, maybe then we will have harder rules to follow. For now, let these
 guidelines serve as a touchstone by which to assess the quality of the
 TypeScript code that you and your team produce.
+
+ソフトウェア工学の歴史はほんの50年を少し超えた程度であり、未だに私達は多くのことを学び続けています。
+ソフトウェアアーキテクチャが建築と同くらい歴史を持っていたならば、おそらく従うべき原則はより厳しくなっていたでしょう。
+現時点では、このガイドラインは、あなたとあなたのチームが作成したTypeScriptコードの品質を評価するための基準として役立つでしょう。
 
 One more thing: knowing these won't immediately make you a better software
 developer, and working with them for many years doesn't mean you won't make
@@ -45,13 +60,25 @@ shaped into its final form. Finally, we chisel away the imperfections when
 we review it with our peers. Don't beat yourself up for first drafts that need
 improvement. Beat up the code instead!
 
+それからもう一つ：
+これらを知ったからと言ってすぐに優秀なソフトウェア開発者となるわけではありませんし、長年これに従って作業を行っても間違いを犯さないわけではありません。
+湿った粘土が最終的な形になるように、コードの各部分は最初のドラフト（ルール）になります。
+最終的に同僚とこれをレビューする時、不完全な部分を取り除いていきます。
+最初のドラフトに改善が必要となった時、自分自身を責めないでください。
+代わりにコードを責めましょう！
+
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Variables
 
-### Use meaningful variable names
+### Use meaningful variable names 
+
+### 意味のある変数名を使う
 
 Distinguish names in such a way that the reader knows what the differences offer.
+
+何を意味してるかを読み手が区別できる名前を付けましょう。
 
 **Bad:**
 
@@ -74,7 +101,11 @@ function between<T>(value: T, left: T, right: T): boolean {
 
 ### Use pronounceable variable names
 
+### 発音可能な変数名を使う
+
 If you can’t pronounce it, you can’t discuss it without sounding like an idiot.
+
+あなたがそれを発音できないなら、まぬけに聞こえてまともな論議になりません。
 
 **Bad:**
 
@@ -100,6 +131,8 @@ type Customer = {
 
 ### Use the same vocabulary for the same type of variable
 
+### 同じ型の変数には同じ単語を割り当てる。
+
 **Bad:**
 
 ```ts
@@ -118,12 +151,21 @@ function getUser(): User;
 
 ### Use searchable names
 
+### 検索可能な名前を使う
+
 We will read more code than we will ever write. It's important that the code we do write is readable and searchable. By not naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) can help identify unnamed constants.
+
+私達は書いた以上のコードを読むでしょう。
+そのため書いたコードは読みやすく探しやすいコードであることが重要になってきます。
+プログラムを理解するのに重要な意味がある変数に名前を付けないことによって、私達は読み手を傷つけています。
+名前を付ける時は検索しやすいものにしましょう。
+[TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/)のようなツールは、名前のない定数を識別するのに役立ちます。
 
 **Bad:**
 
 ```ts
 // What the heck is 86400000 for?
+// 一体何が86400000なのか？
 setTimeout(restart, 86400000);
 ```
 
@@ -131,6 +173,7 @@ setTimeout(restart, 86400000);
 
 ```ts
 // Declare them as capitalized named constants.
+// 定数の名前は大文字で宣言してください。
 const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
 setTimeout(restart, MILLISECONDS_IN_A_DAY);
@@ -140,6 +183,8 @@ setTimeout(restart, MILLISECONDS_IN_A_DAY);
 
 ### Use explanatory variables
 
+### 説明変数を使う
+
 **Bad:**
 
 ```ts
@@ -147,6 +192,7 @@ declare const users: Map<string, User>;
 
 for (const keyValue of users) {
   // iterate through users map
+  // user map を反復処理する
 }
 ```
 
@@ -157,6 +203,7 @@ declare const users: Map<string, User>;
 
 for (const [id, user] of users) {
   // iterate through users map
+  // user map を反復処理する
 }
 ```
 
@@ -164,7 +211,12 @@ for (const [id, user] of users) {
 
 ### Avoid Mental Mapping
 
-Explicit is better than implicit.  
+### メンタルマップを避ける
+
+Explicit is better than implicit.
+*Clarity is king.*
+
+明示的は暗黙的より優れています。
 *Clarity is king.*
 
 **Bad:**
@@ -187,7 +239,11 @@ const transaction = charge(user, subscription);
 
 ### Don't add unneeded context
 
+### 不要な文脈を追加しない
+
 If your class/type/object name tells you something, don't repeat that in your variable name.
+
+もしあなたの class/type/object の名前が何かを伝えているのなら、あなたの変数名の中でそのことを繰り返さないでください。
 
 **Bad:**
 
@@ -221,7 +277,11 @@ function print(car: Car): void {
 
 ### Use default arguments instead of short circuiting or conditionals
 
+### 短絡評価や条件式の代わりにデフォルト引数を使用する
+
 Default arguments are often cleaner than short circuiting.
+
+デフォルト引数は、短絡評価よりもきれいなことがよくあります。
 
 **Bad:**
 
