@@ -1210,7 +1210,11 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 ## Objects and Data Structures
 
+## オブジェクトとデータ構造
+
 ### Use getters and setters
+
+### getter と setter を使う
 
 TypeScript supports getter/setter syntax.
 Using getters and setters to access data from objects that encapsulate behavior could be better that simply looking for a property on an object.
@@ -1221,6 +1225,16 @@ Using getters and setters to access data from objects that encapsulate behavior 
 * Encapsulates the internal representation.
 * Easy to add logging and error handling when getting and setting.
 * You can lazy load your object's properties, let's say getting it from a server.
+
+TypeScriptはgetter/setter構文をサポートしています。
+getterとsetterを使って振る舞いをカプセル化してオブジェクトにアクセスするほうが、単純なプロパティでオブジェクトにアクセスするよいも優れている可能性があります。
+「何故？」と思われるかもしれませんが、以下がその理由の一覧です:
+
+* もしオブジェクトのプロパティを取得する以上のことをしてる場合、コード内のすべてのアクセサを調べて変更する必要がありません。
+* *set* を使うとバリデーションが追加できます。
+* 内部をカプセル化できます。
+* 値を取得や設定する時にログやエラー処理を追加するのが容易になります。
+* オブジェクトのプロパティを遅延ロードすることができるようになります、例えばサーバから値を取得する時などです。
 
 **Bad:**
 
@@ -1268,6 +1282,10 @@ class BankAccount {
 // If one day the specifications change, and we need extra validation rule,
 // we would have to alter only the `setter` implementation, 
 // leaving all dependent code unchanged. 
+// これで `BankAccount` はバリデーション処理をカプセル化しました。
+// ある日仕様が弁口されて、追加のバリデーションが必要になった場合にも
+// `setter`の実装だけを変更すればよく
+// すべての依存したコードを変更する必要はありません。
 const account = new BankAccount();
 account.balance = 100;
 ```
@@ -1276,7 +1294,11 @@ account.balance = 100;
 
 ### Make objects have private/protected members
 
+### オブジェクトにprivate/protectedメンバーをもたせる
+
 TypeScript supports `public` *(default)*, `protected` and `private` accessors on class members.  
+
+TypeScriptはクラスメンバーに対して`public`、*(default)*、`protected`、`private` アクセサをサポートしています。
 
 **Bad:**
 
@@ -1319,8 +1341,16 @@ class Circle {
 
 ### Prefer immutability
 
+### 普遍性を好む
+
 TypeScript's type system allows you to mark individual properties on an interface / class as *readonly*. This allows you to work in a functional way (unexpected mutation is bad).  
 For more advanced scenarios there is a built-in type `Readonly` that takes a type `T` and marks all of its properties as readonly using mapped types (see [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)).
+
+TypeScriptの型システムではインタフェース/クラスのプロパティに *readonly* とマークすることができます。
+これを用いると、あなたは関数型で書くことができるようになります。
+(予想外の変更が良くないものです)
+より高度なシナリオでは、組み込み型の `Readonly` があります。これは`T` 型 と map型を併用してすべてのプロパティを読み取り専用としてマークします。
+([マップ型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)を参照)
 
 **Bad:**
 
@@ -2655,19 +2685,33 @@ class Square implements Shape {
 
 ## Comments
 
+## コメント
+
 The use of a comments is an indication of failure to express without them. Code should be the only source of truth.
-  
+
 > Don’t comment bad code—rewrite it.  
+> — *Brian W. Kernighan and P. J. Plaugher*
+
+コメントを使用するのは、それなしでは表現できなかったことを表します。
+コードが唯一の真実であるべきです。
+
+> 悪いコードにコメントをしていないで書き換えてください。
 > — *Brian W. Kernighan and P. J. Plaugher*
 
 ### Prefer self explanatory code instead of comments
 
+### コメントではなく、自己説明的なコードを好む
+
 Comments are an apology, not a requirement. Good code mostly documents itself.
+
+コメントは弁明であり、必須ではありません。
+良いコードはほとんど文章のようになっています。
 
 **Bad:**
 
 ```ts
 // Check if subscription is active.
+// subscriptionが有効かを確認
 if (subscription.endDate > Date.now) {  }
 ```
 
@@ -2682,7 +2726,11 @@ if (isSubscriptionActive) { /* ... */ }
 
 ### Don't leave commented out code in your codebase
 
+### コメントアウトされたコードを残さない
+
 Version control exists for a reason. Leave old code in your history.
+
+バージョン管理ツールが存在する理由です、古いコードは履歴に残しましょう。
 
 **Bad:**
 
@@ -2708,7 +2756,13 @@ type User = {
 
 ### Don't have journal comments
 
+### 日付を持ったコメントはいりません
+
 Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use git log to get history!
+
+バージョン管理ツールを使うことを覚えましょう！
+使ってないコード、コメントアウトされたコード、日記のようなコメントは不要です。
+gitの履歴を取得するのに git log を使ってください。
 
 **Bad:**
 
@@ -2736,8 +2790,16 @@ function combine(a: number, b: number): number {
 
 ### Avoid positional markers
 
+### 位置取りの印として使うのをさける
+
 They usually just add noise. Let the functions and variable names along with the proper indentation and formatting give the visual structure to your code.  
 Most IDE support code folding feature that allows you to collapse/expand blocks of code (see Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)).
+
+これは単純にノイズです。
+関数と変数名を適切なインデント、フォーマットで使用して、コードの視覚的な構造を持ちましょう。
+これは単純にノイズです。
+関数と変数名を適切なインデント、フォーマットで使用して、コードの視覚的な構造を持ちましょう。
+ほとんどのIDEはコードの折りたたみ機能をサポートしているので、コードブロックを折りたたむ／展開することができます。(Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)を参照).
 
 **Bad:**
 
