@@ -1653,7 +1653,11 @@ const query = new QueryBuilder()
 
 ### Single Responsibility Principle (SRP)
 
+### 単一責任の原則(SRP)
+
 As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons to change. Minimizing the amount of times you need to change a class is important. It's important because if too much functionality is in one class and you modify a piece of it, it can be difficult to understand how that will affect other dependent modules in your codebase.
+
+クリーンコードに記載されているように、「クラスを変更する理由は複数存在してはなりません」。フライトでスーツケースを1つしか取ることができないような、多くの機能を備えたクラスを詰め込むのは魅力的に見えます。これに関する問題は、クラスが概念的にまとまりがなく、変更する多くの理由を与えるということです。クラスを変更する必要がある時間を最小限に抑えることが重要です。1つのクラスにあまりにも多くの機能があり、その一部を変更すると、他の依存モジュールにどのような影響があるかを理解するのが難しくなるからです。
 
 **Bad:**
 
@@ -1706,7 +1710,11 @@ class UserSettings {
 
 ### Open/Closed Principle (OCP)
 
-As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
+### オープン、クローズドの原則(OCP)
+
+As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
+
+Bertrand Meyer(バートランド・メイヤー)が記したように、「ソフトウエアの構成要素(クラス、モジュール、関数など)は、拡張に対してオープンで、変更に対してはクローズであるべき」です。それはどういう意味でしょう?この原則は、ユーザーが既存のコードを変更せずに新しい機能を追加できるようにするべきと述べています。
 
 **Bad:**
 
@@ -1799,9 +1807,15 @@ class HttpRequester {
 
 ### Liskov Substitution Principle (LSP)
 
+### リスコフの置換原則 (LSP)
+
 This is a scary term for a very simple concept. It's formally defined as "If S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e., objects of type S may substitute objects of type T) without altering any of the desirable properties of that program (correctness, task performed, etc.)." That's an even scarier definition.  
   
+これを単純な概念と呼ぶには恐れ多い言葉です。「SがTのサブタイプである場合、T型のオブジェクトはS型のオブジェクトに置き換えられるかもしれません (すなわち、S型のオブジェクトは、そのプログラムの望ましいプロパティを変更することなく、T型のオブジェクトを置き換えるかもしれません。、タスクの実行など)。それは、やっかいな定義でもあります。
+
 The best explanation for this is if you have a parent class and a child class, then the base class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
+
+これについての最良の説明は、親クラスと子クラスがある場合、親クラスと子クラスは、異なる振る舞いをすることなく、交互に利用することができるということです。まだ混乱しているかもしれないので、古典的な正方形の長方形の例を見てみましょう。数学的には、正方形は長方形ですが、継承を介して「is-a（AはBである）」関係を使用してモデル化すると、すぐに問題が発生します。
 
 **Bad:**
 
@@ -1916,8 +1930,15 @@ renderLargeShapes(shapes);
 
 ### Interface Segregation Principle (ISP)
 
+### インターフェース分離の原則(ISP)
+
 ISP states that "Clients should not be forced to depend upon interfaces that they do not use.". This principle is very much related to the Single Responsibility Principle.
+
+ISPは、「クライアントに、彼らが利用していないインターフェイスへの依存を強要してはならない」と述べています。この原則は、単一の責任の原則に非常に関連しています。
+
 What it really means is that you should always design your abstractions in a way that the clients that are using the exposed methods do not get the whole pie instead. That also include imposing the clients with the burden of implementing methods that they don’t actually need.
+
+実際には、公開されたメソッドを使用しているクライアントがその代わりにパイ全体を取得しないように、抽象化を常に設計する必要があるということです。また、実際には必要のないメソッドを実装する負担をクライアントに課すことも含まれます。
 
 **Bad:**
 
@@ -1997,15 +2018,27 @@ class EconomicPrinter implements Printer {
 
 ### Dependency Inversion Principle (DIP)
 
+### 依存性逆転の原則
+
 This principle states two essential things:
 
 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
 
 2. Abstractions should not depend upon details. Details should depend on abstractions.
 
+この原則は、2つの重要なことを述べています。
+
+1. 高レベルモジュールは低レベルモジュールに依存してはいけない。どちらも抽象に依存するべき。
+
+2. 抽象は実装に依存するべきではない。実装は抽象に依存するべき。
+
 This can be hard to understand at first, but if you've worked with Angular, you've seen an implementation of this principle in the form of Dependency Injection (DI). While they are not identical concepts, DIP keeps high-level modules from knowing the details of its low-level modules and setting them up. It can accomplish this through DI. A huge benefit of this is that it reduces the coupling between modules. Coupling is a very bad development pattern because it makes your code hard to refactor.  
   
+最初はこれを理解するのは難しいですが、Angularを使用して作業している場合は、依存性注入(DI)の形でこの原則の実装を見てきました。DIPは同じ概念ではありませんが、低レベルモジュールの実装を把握して設定することから、高レベルのモジュールを保持します。なのでDIPはDIを通じて達成することができます。これの大きな利点は、モジュール間が疎結合になることです。密結合は、コードをリファクタリングしにくくするため、非常に悪い開発パターンです。
+
 DIP is usually achieved by a using an inversion of control (IoC) container. An example of a powerful IoC container for TypeScript is [InversifyJs](https://www.npmjs.com/package/inversify)
+
+DIPは通常、コントロールの反転(IoC)使用することによって実現されます。TypeScript用の強力なIoCコンテナの例は、[InversifyJs](https://www.npmjs.com/package/inversify)です。
 
 **Bad:**
 
@@ -2029,6 +2062,8 @@ class ReportReader {
 
   // BAD: We have created a dependency on a specific request implementation.
   // We should just have ReportReader depend on a parse method: `parse`
+  // だめ！ 特定の要求(XmlFormatter)の実装に依存関係を作成してしまっています。
+  // `ReportReader`は`parse`メソッドだけに依存するべき。
   private readonly formatter = new XmlFormatter();
 
   async read(path: string): Promise<ReportData> {
@@ -2094,24 +2129,40 @@ await report = await reader.read('report.json');
 
 ## Testing
 
+## テスト
 Testing is more important than shipping. If you have no tests or an inadequate amount, then every time you ship code you won't be sure that you didn't break anything.
 Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches)
 is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a good coverage tool.
 
+テストはリリースよりも重要です。もし、テストがなかったり不十分な場合は、リリースするたびに何も壊れていないことを確認できません。
+何をもって十分なテストとするかはあなたのチームによりますが100%のカバレッジを持つということは (すべての分と分岐において)非常に高い信頼と開発者の安心を達成する方法です。これは、優れたテストフレームワークを用意することに加えて、優れたカバレッジツールを使用する必要があることを意味します。
+
 There's no excuse to not write tests. There are plenty of good JS test frameworks with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
+
+テストを書かない理由はありません。TypeScriptのためのタイピングサポートを備えた優れたJSテストフレームワークがたくさんありますので、あなたのチームに最適なものを見つけてください。チームに最適なフレームワークを見つけたら、常にあなたが導入するすべての新しい機能/モジュールに対してテストを書くことを目指します。もしお気に入りの方法がテスト駆動開発 (TDD) であれば、それは素晴らしいことですが、重要なポイントはソースを起動する前やリファクタリングする前に、カバレッジの目標を達成していることを確認することです。
 
 ### The three laws of TDD
 
+### テスト駆動開発 (TDD)の3つの法則
 1. You are not allowed to write any production code unless it is to make a failing unit test pass.
 
 2. You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
 
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
 
+---
+
+1. 失敗する単体テストを作成する場合を除き、運用コードを記述することはできません。
+
+2. 失敗する単体テストが十分であったとしても、コンパイルできなければそれは失敗です。
+
+3. 運用コードで想定されている以上に失敗する単体テストを記述する必要はありません
+
 **[⬆ back to top](#table-of-contents)**
 
 ### F.I.R.S.T. rules
 
+### F.I.R.S.T. ルール
 Clean tests should follow the rules:
 
 * **Fast** tests should be fast because we want to run them frequently.
@@ -2124,11 +2175,26 @@ Clean tests should follow the rules:
 
 * **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
 
+クリーンテストをするためには、以下のルールに従う必要があります。
+
+* **Fast(高速)** テストは頻繁に実行したいので、高速である必要があります。
+
+* **Independent(独立)** テストは互いに依存してはなりません。これらは、独立して実行する場合も、すべての順序で一緒に行う場合も同じ出力を提供します。
+
+* **Repeatable(再現)** テストはどのような環境でも繰り返し可能であり、失敗することはありません。
+
+* **Self-Validating(自己検証)** テストは、*合格*または*失敗*のいずれかで応答する必要があります。テストに合格した場合は、ログファイルを比較して回答する必要はありません。
+
+* **Timely(適時)** 単体テストは、運用コードを記述する前に記述する必要があります。運用コードを記述した後にテストを記述すると、テストの書き込みが困難になることがあります。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Single concept per test
 
+### テストごとに単一のコンセプトを持つこと
 Tests should also follow the *Single Responsibility Principle*. Make only one assert per unit test.
+
+テストは、*単一責任の原則*に従う必要があります。単体テストごとにアサートを1つだけ作成します。
 
 **Bad:**
 
@@ -2178,7 +2244,11 @@ describe('AwesomeDate', () => {
 
 ### The name of the test should reveal it's intention
 
+### テストの名前は意図がわかる名前にする
+
 When a test fail, it's name is the first indication of what may have gone wrong.
+
+テストが失敗した場合、それは名前自体が間違っていた可能性があります。
 
 **Bad:**
 
@@ -2212,11 +2282,18 @@ describe('Calendar', () => {
 
 ## Concurrency
 
+## 並列処理
+
 ### Prefer promises vs callbacks
 
+### promisesとコールバックのどちらが好みか
 Callbacks aren't clean, and they cause excessive amounts of nesting *(the callback hell)*.  
 There are utilities that transform existing functions using the callback style to a version that returns promises
 (for Node.js see [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), for general purpose see [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
+
+コールバックはクリーンではなく、過剰な量のネスト(コールバック地獄)を引き起こします。  
+コールバックスタイルを使用して既存の関数を、promiseを返すバージョンに変換するユーティリティがあります。
+(Node.jsの場合は[`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), 一般的な目的については [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
 
 **Bad:**
 
@@ -2279,11 +2356,27 @@ Promises supports a few helper methods that help make code more conscise:
 
 `Promise.all` is especially useful when there is a need to run tasks in parallel. `Promise.race` makes it easier to implement things like timeouts for promises.
 
+
+promiseは、コードをより簡潔にするのに役立ついくつかのヘルパーメソッドをサポートしています。
+
+| Pattern                  | Description                                |  
+| ------------------------ | -----------------------------------------  |  
+| `Promise.resolve(value)` | 値を解決済みのPromiseに変換する   |  
+| `Promise.reject(error)`  | エラーを却下済みのPromiseに変換する  |  
+| `Promise.all(promises)`  |渡されたPromiseまたは却下のフルフィルメントの値の配列で満たされる新しいPromiseを、最初のPromiseが却下された理由で返します。 |
+| `Promise.race(promises)`|渡されたPromiseの配列から最初に解決されたPromiseの結果またはエラーで、満たされたもしくは拒否された新しいPromiseを返します。 |
+
+`Promise.all` は、タスクを並行して実行する必要がある場合に特に便利です。`Promise.race`は、Promiseのタイムアウトのようなものを実装することが容易になります。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Async/Await are even cleaner than Promises
 
+### Async/Await は、Promiseよりもきれいです
+
 With `async`/`await` syntax you can write code that is far cleaner and more understandable that chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
+
+`async`/`await` 構文を使用すると、チェーンされたPromiseの方がはるかにクリーンでわかりやすいコードを記述できます。`async`キーワードで始まる関数の中には、`await`キーワードでコードの実行を一時停止するように JavaScriptランタイムに指示する方法があります (Promiseで使用する場合)。
 
 **Bad:**
 
@@ -2319,6 +2412,7 @@ async function downloadPage(url: string, saveTo: string): Promise<string> {
 }
 
 // somewhere in an async function
+// どこかで実行するasync function
 try {
   const content = await downloadPage('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', 'article.html');
   console.log(content);
@@ -2331,16 +2425,28 @@ try {
 
 ## Error Handling
 
+## エラーハンドリング
+
 Thrown errors are a good thing! They mean the runtime has successfully identified when something in your program has gone wrong and it's letting you know by stopping function
 execution on the current stack, killing the process (in Node), and notifying you in the console with a stack trace.
 
+スローされたエラーは良いことです!彼らは、あなたのプログラムの何かが間違っていたときにランタイムが正常に識別したことを意味し、それはあなたが機能を停止することによって知らせる現在のスタックで実行され、プロセス (ノード内) を強制終了し、スタックトレースをコンソールに通知します。
+
 ### Always use Error for throwing or rejecting
+
+### 常にスローまたは拒否のエラーを使用すること
 
 JavaScript as well as TypeScript allow you to `throw` any object. A Promise can also be rejected with any reason object.  
 It is advisable to use the `throw` syntax with an `Error` type. This is because your error might be caught in higher level code with a `catch` syntax.
 It would be very confusing to catch a string message there and would make
 [debugging more painful](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
 For the same reason you should reject promises with `Error` types.
+
+JavaScriptだけでなく、TypeScriptを使用すると、任意のオブジェクトを `throw`することができます。Promiseは、何らかの理由を含めたオブジェクトで却下することもできます。  
+`throw`構文を`Error`型で使用することをお勧めします。これは、エラーが `catch`構文で上位レベルのコードでキャッチされる可能性があるためです。
+代わりに文字列メッセージをキャッチし、それに応答するように作ることは非常に混乱するだろう。
+[より痛みを伴うデバッグ](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
+上記と同じ理由で`Error`型のPromiseを拒否する必要があります。
 
 **Bad:**
 
@@ -2366,6 +2472,7 @@ function get(): Promise<Item[]> {
 }
 
 // or equivalent to:
+// 以下も相当する処理:
 
 async function get(): Promise<Item[]> {
   throw new Error('Not implemented.');
@@ -2376,6 +2483,10 @@ The benefit of using `Error` types is that it is supported by the syntax `try/ca
 is very powerful for debugging.  
 There are also another alternatives, not to use the `throw` syntax and instead always return custom error objects. TypeScript makes this even easier.
 Consider following example:
+
+`Error`型を使用する利点は、それが`try/catch/finally`構文によってサポートされており、暗黙的にすべてのエラーには、デバッグに非常に強力な`stack`プロパティがあるということです。  
+また、`throw`構文を使用するのではなく、常にカスタムエラーオブジェクトを返すという別の選択肢もあります。TypeScriptはこれをさらに簡単にします。
+次の例で考えてみます:
 
 ```ts
 type Result<R> = { isError: false, value: R };
@@ -2394,11 +2505,17 @@ function calculateTotal(items: Item[]): Failable<number, 'empty'> {
 
 For the detailed explanation of this idea refer to the [original post](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9).
 
+このアイデアの詳細については[元の記事](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9)を参照してください。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Don't ignore caught errors
 
+### 例外をキャッチしたことを無視しないこと
+
 Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Logging the error to the console (`console.log`) isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
+
+例外を補足して何もしないことは、エラーに対して修正したり、上記のエラーが言ったことに対応することができないということです。コンソール(`console.log`)にエラーを記録することは、頻繁にコンソール出力された海で迷子になることが多いので、あまり良くありません。`try/catch`構文使用するということは、そこでエラーが発生する可能性があると考えられるため、発生したときの計画を立てるか、コードの行き先を作成する必要があります。
 
 **Bad:**
 
@@ -2434,7 +2551,11 @@ try {
 
 ### Don't ignore rejected promises
 
+### 失敗したPromiseを無視しないこと
+
 For the same reason you shouldn't ignore caught errors from `try/catch`.
+
+同じ理由で`try/catch`からキャッチされた例外を無視すべきではありません。
 
 **Bad:**
 
@@ -2475,9 +2596,15 @@ try {
 
 ## Formatting
 
+## フォーマット
+
 Formatting is subjective. Like many rules herein, there is no hard and fast rule that you must follow. The main point is *DO NOT ARGUE* over formatting. There are tons of tools to automate this. Use one! It's a waste of time and money for engineers to argue over formatting. The general rule to follow is *keep consistent formatting rules*.  
 
+書式設定は主観的です。ここにある多くのルールと同様に、あなたが従わなければならないような、厳格ながんじがらめのルールはありません。主なポイントは、*書式設定以上に*主張しないことです。これを自動化するためのツールがたくさんありますが、1つを使用してください!技術者がフォーマットを議論するのは時間とお金の無駄です。従うべき一般的な規則は、*一貫性のある書式設定規則を維持する*です。
+
 For TypeScript there is a powerful tool called [TSLint](https://palantir.github.io/tslint/). It's a static analysis tool that can help you improve dramatically the readability and maintainability of your code. There are ready to use TSLint configurations that you can reference in your projects:
+
+TypeScriptには、[TSLint](https://palantir.github.io/tslint/) という強力なツールがあります。これは、コードの可読性と保守性を飛躍的に向上させるのに役立つ静的分析ツールです。以下でプロジェクトで参照できるTSLint構成を使用する準備が整いました。
 
 * [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - standard style rules
 
@@ -2493,11 +2620,32 @@ For TypeScript there is a powerful tool called [TSLint](https://palantir.github.
 
 * [Immutable](https://www.npmjs.com/package/tslint-immutable) - rules to disable mutation in TypeScript
 
-Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html) source.
+---
+
+* [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - 一般的なスタイルガイド
+
+* [TSLint Config Airbnb](https://www.npmjs.com/package/tslint-config-airbnb) - Airbnbのスタイルガイド
+
+* [TSLint Clean Code](https://www.npmjs.com/package/tslint-clean-code) - [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.ca/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)に触発されたTSLint
+
+* [TSLint react](https://www.npmjs.com/package/tslint-react) - ReactとJSXに関連するスタイルガイド
+
+* [TSLint + Prettier](https://www.npmjs.com/package/tslint-config-prettier) - [Prettier](https://github.com/prettier/prettier)コードフォーマッターのためのルール
+
+* [ESLint rules for TSLint](https://www.npmjs.com/package/tslint-eslint-rules) - ESLintに遵守したTypeScriptのためのルール
+
+* [Immutable](https://www.npmjs.com/package/tslint-immutable) - 突然変異を無効化するルールを含めたTypeScriptのルール
+
+
+素晴らしいスタイルガイドは[TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html)から参照してください
 
 ### Use consistent capitalization
 
+### 一貫性をもった大文字を使用すること
+
 Capitalization tells you a lot about your variables, functions, etc. These rules are subjective, so your team can choose whatever they want. The point is, no matter what you all choose, just *be consistent*.
+
+大文字を使用すると、変数や関数などについて多くのことが分かります。これらのルールは主観的なので、チームに最適なものを選択できます。ポイントは、あなたが選んだもの全てについて、*一貫性を持たせてください*ということだけです。
 
 **Bad:**
 
@@ -2534,12 +2682,20 @@ type Container { /* ... */ }
 Prefer using `PascalCase` for class, interface, type and namespace names.  
 Prefer using `camelCase` for variables, functions and class members.
 
+クラス、インターフェイス、型、および名前空間の名前に`パスカルケース`を使用することが好ましいです。  
+変数、関数、およびメンバー変数には`キャメルケース`を使用することが好ましいです。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Function callers and callees should be close
 
+### 関数の呼び出し元と呼び出し先は近くにあること
+
 If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee.
 We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
+
+別の関数を呼び出す場合は、ソースファイル内でこれらの関数を垂直方向に記述するようにしましょう。呼び出し元を呼び出し先のすぐ上に保持するのが理想的です。  
+私たちは、新聞のように、上から下にコードを読む傾向があります。このため、あなたのコードをそのように読み取ってください。
 
 **Bad:**
 
@@ -2627,8 +2783,13 @@ review.review();
 
 ### type vs. interface
 
+### タイプとインターフェース
+
 Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
 For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
+
+「ユニオン」または「交点」が必要な場合は、`type`を使用します。「拡張」または「実装」する場合は、`interface`を使用します。ただ、あなたのために働くものを使用して、厳格なルールはありません。  
+TypeScriptの`type`と`interface`の違いについての詳細は、この[回答](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543)を参照してください。
 
 **Bad:**
 
