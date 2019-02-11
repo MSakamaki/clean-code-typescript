@@ -2094,11 +2094,24 @@ await report = await reader.read('report.json');
 
 ## Testing
 
+## テスト
+
 Testing is more important than shipping. If you have no tests or an inadequate amount, then every time you ship code you won't be sure that you didn't break anything.
 Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches)
 is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a good coverage tool.
 
+テストはリリースよりも重要です。
+あなたのテストをしていないか、不十分であった場合、あなたがリリースするたびに何も壊していないという確信を得ることは無いでしょう。
+何が適切な量を構成するのは貴方のチーム次第ですが、カバレッジ100%(すべてのステートメントと分岐を含め)にするということは、非常に高い信頼性とともに、開発者の安心を持つことが出来ます。
+つまり、優れたテストフレームワークとカバレッジツールを使う必要があります。
+
 There's no excuse to not write tests. There are plenty of good JS test frameworks with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
+
+テストを書かない理由はありません。
+TypeScriptの方をサポートする優れたJSテストフレームワークはたくさんあるので、チームが好むものを見つけてください。
+自分のチームに合ったものが見つかったら導入するすべての新しい機能やモジュールに対して常にテストを書くことを目標にします。
+もし貴方がテスト駆動開発(TDD)であるなら素晴らしいでしょう。
+しかし、重要なのは機能を動かす前や既存の機能をリファクタする前にカバレッジの目標を達成していることを確実にすることです。
 
 ### The three laws of TDD
 
@@ -2108,9 +2121,19 @@ There's no excuse to not write tests. There are plenty of good JS test framework
 
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
 
+### RDD３つの法則
+
+1. 失敗した単体テストに合格しない限り、実コードを書くことはできません。
+
+2. 失敗させるためにしか単体テストは書いてはいけません。コンパイルエラーは失敗に数えます。
+
+3. 単体テストを1つだけ成功させる以上に、 プロダクトコードを書いてはならない。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### F.I.R.S.T. rules
+
+### F.I.R.S.T. の規則
 
 Clean tests should follow the rules:
 
@@ -2124,11 +2147,27 @@ Clean tests should follow the rules:
 
 * **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
 
+綺麗なテストは以下の規則に従います：
+
+* **Fast** テストは頻繁に実行したいので早いはずです。
+
+* **Independent**  テストは互いに依存してはいけません。それらは独立して実行されても任意の順番でまとめて実行されても同じ結果を返します。
+
+* **Repeatable** テストはどのような環境でも繰り返し実行可能であるべきで、何故失敗するかについての言い訳をしてはいけません。
+
+* **Self-Validating** テストは *合格* と *不合格* のどちらかしかありえません。テストに合格した場合にログファイルを比較して回答したりしないでください。
+
+* **Timely**  単体テストはプロダクトコードの前に書かれるべきです。プロダクトコードの後にテストを書くとテストを書くのは難しくなる可能性があります。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Single concept per test
 
+### テスト毎に単純なコンセプトを持つ
+
 Tests should also follow the *Single Responsibility Principle*. Make only one assert per unit test.
+
+テストは *単一責任原則* に従うべきです。単体テスト毎にアサーションを１つ持ちましょう。
 
 **Bad:**
 
@@ -2178,7 +2217,11 @@ describe('AwesomeDate', () => {
 
 ### The name of the test should reveal it's intention
 
+### テストの名前は何をしてるか、理解しやすくしましょう。
+
 When a test fail, it's name is the first indication of what may have gone wrong.
+
+テストが失敗した場合に、何が間違ってたが気づけるような名前が重要です。
 
 **Bad:**
 
@@ -2212,11 +2255,19 @@ describe('Calendar', () => {
 
 ## Concurrency
 
+## 並行性
+
 ### Prefer promises vs callbacks
+
+### コールバックではなく Promise を使う
 
 Callbacks aren't clean, and they cause excessive amounts of nesting *(the callback hell)*.  
 There are utilities that transform existing functions using the callback style to a version that returns promises
 (for Node.js see [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), for general purpose see [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
+
+コールバックは綺麗では無く、過度のネスト(*コールバック地獄*)を引き起こします。
+コールバックスタイルの既存関数をPromiseスタイルに変更するユーティリティがあります。
+Node.js に関しては  [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original)、一般的にな目的には [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify)
 
 **Bad:**
 
@@ -2277,13 +2328,30 @@ Promises supports a few helper methods that help make code more conscise:
 | `Promise.all(promises)`  |Returns a new promise which is fulfilled with an array of fulfillment values for the passed promises or rejects with the reason of the first promise that rejects. |
 | `Promise.race(promises)`|Returns a new promise which is fulfilled/rejected with the result/error of the first settled promise from the array of passed promises. |
 
+Promisesは、コードをより簡潔にするためのヘルパーメソッドをいくつかサポートします。
+
+| Pattern                  | Description                                |  
+| ------------------------ | -----------------------------------------  |  
+| `Promise.resolve(value)` | 値をpromiseの resolve に変換する |  
+| `Promise.reject(error)`  | エラーをpromiseの reject に変換する |  
+| `Promise.all(promises)`  | 渡されたプロミスの配列がすべて正常に完了するか、一部でrejectとなった場合 Promise を完了させます。 |
+| `Promise.race(promises)` | 渡されたプロミスの配列の最初に resolve/rejectされた結果で新しいプロミスを返します。 |
+
 `Promise.all` is especially useful when there is a need to run tasks in parallel. `Promise.race` makes it easier to implement things like timeouts for promises.
+
+`Promise.all`はタスクを並行して実行する必要がある時に特に便利です。
+`Promise.race` はPromiseにタイムアウトのようなものを実装する時に、それを簡単に実現できます。
 
 **[⬆ back to top](#table-of-contents)**
 
 ### Async/Await are even cleaner than Promises
 
+### Async/Await はPromisesよりも更に綺麗です
+
 With `async`/`await` syntax you can write code that is far cleaner and more understandable that chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
+
+`async`/`await`構文を使うと、promiseチェーンを作るよりはるかに綺麗で理解しやすいコードを書くことが出来ます。
+`async` キーワードを接頭辞とした関数内では (promiseが使用されている場合) `await` キーワードでコードの実行を一時停止するようjavascriptランタイムに指示することが出来ます。
 
 **Bad:**
 
