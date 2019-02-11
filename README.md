@@ -2331,16 +2331,34 @@ try {
 
 ## Error Handling
 
+## エラー処理
+
 Thrown errors are a good thing! They mean the runtime has successfully identified when something in your program has gone wrong and it's letting you know by stopping function
 execution on the current stack, killing the process (in Node), and notifying you in the console with a stack trace.
 
+例外が発生するのは良いことです！
+これはプログラムの何かが正常に動作しなかった事をランタイムが正常に判別出来たことを意味します。
+そして現在のスタックで関数の実行を停止して（Node内の）プロセスを強制終了し、コンソールにスタックトレースを表示して通知します。
+
 ### Always use Error for throwing or rejecting
 
-JavaScript as well as TypeScript allow you to `throw` any object. A Promise can also be rejected with any reason object.  
+### ThrowやRejectの時にErrorを使う
+
+JavaScript as well as TypeScript allow you to `throw` any object. A Promise can also be rejected with any reason object. 
+
+JavaScriptとTypeScriptは任意のオブジェクトを `throw` できます。
+Promiseの場合は `reject` することができます。
+
 It is advisable to use the `throw` syntax with an `Error` type. This is because your error might be caught in higher level code with a `catch` syntax.
 It would be very confusing to catch a string message there and would make
 [debugging more painful](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
 For the same reason you should reject promises with `Error` types.
+
+`Error` 型と `throw` 構文を使うようにしましょう。
+これは貴方のエラーが `catch` 構文を使ってより高いレベルのコードで補足されるかもしれないからです。
+その時に文字列でメッセージを出すのはとても混乱を招くでしょう。
+[より厄介なデバッグ](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error)
+同じ理由で `Error` 型の `reject` を行うべきです。
 
 **Bad:**
 
@@ -2377,6 +2395,11 @@ is very powerful for debugging.
 There are also another alternatives, not to use the `throw` syntax and instead always return custom error objects. TypeScript makes this even easier.
 Consider following example:
 
+`Error` 型を使う利点は、それが `try/catch/finally` 構文によってサポートされており、暗黙的に `stack` プロパティを持つためデバッグにおいて非常に強力だからです。
+`throw` 構文を使わずに常にカスタムエラーオブジェクトを返すという方法もあります。
+TypeScriptはそれを更に簡単にします。
+次の例を参考にしてみてください：
+
 ```ts
 type Result<R> = { isError: false, value: R };
 type Failure<E> = { isError: true, error: E };
@@ -2394,11 +2417,19 @@ function calculateTotal(items: Item[]): Failable<number, 'empty'> {
 
 For the detailed explanation of this idea refer to the [original post](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9).
 
+このアイディアの詳細については[元の記事](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9)を参照してください。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Don't ignore caught errors
 
+### 例外を握りつぶさない
+
 Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Logging the error to the console (`console.log`) isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
+
+捉えられた例外に対して何もしないというのは、例外が発生しても例外を発見したり、修正することができなくなります。
+コンソール (`console.log`)にエラーを表示するのは、頻繁にコーンソール表示の海に溺れてしまうためあまり良いことではありません。
+コードの一部でも `try/catch` で囲むとそこでエラーが発生する可能性があり、発生したエラーに備えた計画を立て、例外が発生したときのコードパスを作る必要があります。
 
 **Bad:**
 
@@ -2434,7 +2465,11 @@ try {
 
 ### Don't ignore rejected promises
 
+### reject された promise を無視しない
+
 For the same reason you shouldn't ignore caught errors from `try/catch`.
+
+同じ理由で、`try/catch` された例外を無視してはいけません。
 
 **Bad:**
 
@@ -2462,6 +2497,7 @@ getUser()
   });
 
 // or using the async/await syntax:
+// もしくは async/await 構文を使う
 
 try {
   const user = await getUser();
@@ -2475,9 +2511,23 @@ try {
 
 ## Formatting
 
+## フォーマット
+
 Formatting is subjective. Like many rules herein, there is no hard and fast rule that you must follow. The main point is *DO NOT ARGUE* over formatting. There are tons of tools to automate this. Use one! It's a waste of time and money for engineers to argue over formatting. The general rule to follow is *keep consistent formatting rules*.  
 
+フォーマットは主観的です。
+ここにある多くの規則のように、貴方が従わなければならない厳しく厳密なルールではありません。
+重要な点は、フォーマットについて *論議しないこと* です。
+これを自動化するツールはたくさんあります。
+それを使ってくさい。
+エンジニアがフォーマットについて論議するのは時間とお金の無駄です。
+従うべき一般的な規則は *一貫したフォーマットルールを守る* ことです。
+
 For TypeScript there is a powerful tool called [TSLint](https://palantir.github.io/tslint/). It's a static analysis tool that can help you improve dramatically the readability and maintainability of your code. There are ready to use TSLint configurations that you can reference in your projects:
+
+TypeScriptには[TSLint](https://palantir.github.io/tslint/)という強力なツールがあります。
+コードの読みやすさと保守性を劇的に向上させるのに役立つ静的分析ツールです。
+プロジェクトですぐに使えるTSLint構成です：
 
 * [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - standard style rules
 
@@ -2495,9 +2545,17 @@ For TypeScript there is a powerful tool called [TSLint](https://palantir.github.
 
 Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html) source.
 
+[TypeScriptスタイルガイドとコーディング規約](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html)も参照してください。
+
 ### Use consistent capitalization
 
+### 一貫性を持った大文字を使用すること
+
 Capitalization tells you a lot about your variables, functions, etc. These rules are subjective, so your team can choose whatever they want. The point is, no matter what you all choose, just *be consistent*.
+
+大文字と小文字は変数や関数について多くのことを教えてくれます。
+このルールは主観的なものなので、チームは必要に応じて好きなものを選ぶことができます。
+重要なのは貴方が選んだどんなことであってもシンプルに *一貫性を持つ* ことです。
 
 **Bad:**
 
@@ -2534,12 +2592,22 @@ type Container { /* ... */ }
 Prefer using `PascalCase` for class, interface, type and namespace names.  
 Prefer using `camelCase` for variables, functions and class members.
 
+クラス、インタフェース、タイプ、名前空間には `PascalCase` の利用が好ましいでしょう。
+変数、関数、クラスメンバーには `camelCase` が好ましいでしょう。
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Function callers and callees should be close
 
+### 関数の呼び出し元と定義は近いはずです。
+
 If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee.
 We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
+
+関数が別の関数を呼び出す場合は、それらの関数をソースファイル内のすぐ近くに定義してください。
+理想的には、呼び出し元を定義の真上に置いてください。
+私たちは新聞のように上から下へとコードを読みます。
+このため、あなたのコードもそのように読めるようにします。
 
 **Bad:**
 
@@ -2627,8 +2695,15 @@ review.review();
 
 ### type vs. interface
 
+### タイプ VS インタフェース
+
 Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
 For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
+
+union や intersection が必要な場合は type を使用してください。
+extends や impliments がほしいときにはinterfaceを使います。
+厳密なルールはありませんが、その時に合ったものを使ってください。
+TypeScriptの `type` と `interface` の違いについてのより詳細な説明はこちらの [回答](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) を参照してください。
 
 **Bad:**
 
