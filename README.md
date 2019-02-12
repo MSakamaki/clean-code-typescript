@@ -1653,7 +1653,15 @@ const query = new QueryBuilder()
 
 ### Single Responsibility Principle (SRP)
 
+### 単一責任の原則 (SRP)
+
 As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons to change. Minimizing the amount of times you need to change a class is important. It's important because if too much functionality is in one class and you modify a piece of it, it can be difficult to understand how that will affect other dependent modules in your codebase.
+
+Clean Code では「クラス変更される理由は１つ以上あってはならない」と述べられています。
+飛行機へ乗る時にスーツケースを一つしか持てない時のように、多くの機能をクラスに詰め込むのは魅力的に見えます。
+これに関する問題は、あなたのクラスが概念的にまとまりがなく、変化を許容する理由をたくさん持ってしまうということです。
+クラスを変更する理由を最小限に留めることが重要になります。
+ここが重要な理由は、１つのクラスにたくさんの機能がある場合に、その一部を変更した時、変更箇所がコードベース内の他の依存モジュールにどう影響するのかを理解するのが難しくなってしまうからです。
 
 **Bad:**
 
@@ -1706,7 +1714,12 @@ class UserSettings {
 
 ### Open/Closed Principle (OCP)
 
+### オープン・クローズドの原則 (OCP)
+
 As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
+
+Bertrand Meyer 氏曰く、「ソフトウェアの関連(クラス。モジュール、関数など)は拡張のために開かれているべきですが、変更のためには閉じられているべき」と言われています。
+これはどういう意味かというと、この原則は基本的に、既存のコードを変更せずにユーザーが新しい機能を追加できるようにするべきと言う意味です。
 
 **Bad:**
 
@@ -1799,9 +1812,18 @@ class HttpRequester {
 
 ### Liskov Substitution Principle (LSP)
 
+### リスコフの置換原則 (LSP)
+
 This is a scary term for a very simple concept. It's formally defined as "If S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e., objects of type S may substitute objects of type T) without altering any of the desirable properties of that program (correctness, task performed, etc.)." That's an even scarier definition.  
   
 The best explanation for this is if you have a parent class and a child class, then the base class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
+
+これは非常に単純な概念と言うには恐ろしいものです。
+S型がT型の派生型の場合、T型のオブジェクトはプログラムの特性(正確さや処理など)を変更すること無く、S型で置き換えることができる(つまり、S型のオブジェクトをT型のオブジェクトと置き換えることができる)というやっかいな定義です。
+
+これに対する良い説明は、親クラスと子クラスがある場合に、親クラスと子クラスは異なる振る舞いを起こさず、互換性を持っているということです。
+まだ難しいと思うので、古典的な正方形と長方形の例を見てみましょう。
+数学的には正方形は長方形ですが、継承による「is-a」関係を使いモデル化すると、問題が発生しやすくなります。
 
 **Bad:**
 
@@ -1916,8 +1938,15 @@ renderLargeShapes(shapes);
 
 ### Interface Segregation Principle (ISP)
 
+### インタフェース分離の原則 (ISP)
+
 ISP states that "Clients should not be forced to depend upon interfaces that they do not use.". This principle is very much related to the Single Responsibility Principle.
 What it really means is that you should always design your abstractions in a way that the clients that are using the exposed methods do not get the whole pie instead. That also include imposing the clients with the burden of implementing methods that they don’t actually need.
+
+ISPでは「クライアントは彼らが利用していないインタフェースへの依存を共用してはならない」と述べられています。
+この原則は、単一責任原則と非常に密接な関係にあります。
+これが本当に意味することは、公開されたメソッドを使用しているクライアントが、すべてのパイを取得しないよう抽象化を常に設計する必要があるという事です。
+これは実際には必要としないメソッドを実装するという負荷をクライアント側に課す事も含まれます。
 
 **Bad:**
 
@@ -1997,6 +2026,8 @@ class EconomicPrinter implements Printer {
 
 ### Dependency Inversion Principle (DIP)
 
+### 依存関係逆転の原則 (DIP)
+
 This principle states two essential things:
 
 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
@@ -2006,6 +2037,18 @@ This principle states two essential things:
 This can be hard to understand at first, but if you've worked with Angular, you've seen an implementation of this principle in the form of Dependency Injection (DI). While they are not identical concepts, DIP keeps high-level modules from knowing the details of its low-level modules and setting them up. It can accomplish this through DI. A huge benefit of this is that it reduces the coupling between modules. Coupling is a very bad development pattern because it makes your code hard to refactor.  
   
 DIP is usually achieved by a using an inversion of control (IoC) container. An example of a powerful IoC container for TypeScript is [InversifyJs](https://www.npmjs.com/package/inversify)
+
+この原則では２つの重要な事を述べています：
+
+1. 上位モジュールはかいモジュールに依存してはいけません、どちらも抽象化に依存するべきです。
+
+2. 抽象化は実装に依存してはいけません、実装は抽象化に依存するべきです。
+
+最初にこれを理解するのは難しいかもしれませんが Angularで作業したことがある場合はこの原則が依存性注入(DI)の形で実装されるのを見たことがあるでしょう。
+それは同一の概念ではありませんが、DIPは高レベルのモジュールが低レベルのモジュールの詳細を知るが、それらが設定されるのを防ぎます。
+これはDIで成し遂げることが出来ます。
+これはモジュール間の結合を減らすことが大きなメリットになります。
+密結合はコードのリファクタリングを困難にするので、非常に良くない開発パターンです。
 
 **Bad:**
 
@@ -2022,6 +2065,7 @@ type ReportData = {
 class XmlFormatter {
   parse<T>(content: string): T {
     // Converts an XML string to an object T
+    // XML文字列をTオブジェクトに変換します。
   }
 }
 
@@ -2029,6 +2073,8 @@ class ReportReader {
 
   // BAD: We have created a dependency on a specific request implementation.
   // We should just have ReportReader depend on a parse method: `parse`
+  // 悪い：特定のリクエストに依存する実装を作りました。
+  // ReportReaderを parseメソッドに依存させています：`parse`
   private readonly formatter = new XmlFormatter();
 
   async read(path: string): Promise<ReportData> {
@@ -2061,6 +2107,7 @@ interface Formatter {
 class XmlFormatter implements Formatter {
   parse<T>(content: string): T {
     // Converts an XML string to an object T
+    // XML文字列をTオブジェクトに変換します。
   }
 }
 
@@ -2068,6 +2115,7 @@ class XmlFormatter implements Formatter {
 class JsonFormatter implements Formatter {
   parse<T>(content: string): T {
     // Converts a JSON string to an object T
+    // json文字列をTオブジェクトに変換します。
   }
 }
 
@@ -2086,6 +2134,7 @@ const reader = new ReportReader(new XmlFormatter());
 await report = await reader.read('report.xml');
 
 // or if we had to read a json report
+// JSONレポートを読む場合
 const reader = new ReportReader(new JsonFormatter());
 await report = await reader.read('report.json');
 ```
