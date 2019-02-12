@@ -1208,6 +1208,88 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 **[⬆ back to top](#table-of-contents)**
 
+### Use iterators and generators
+
+Use generators and iterables when working with collections of data used like a stream.  
+There are some good reasons:
+- decouples the callee from the generator implementation in a sense that callee decides how many
+items to access
+- lazy execution, items are streamed on demand
+- built-in support for iterating items using the `for-of` syntax
+- iterables allow to implement optimized iterator patterns
+
+**Bad:**
+
+```ts
+function fibonacci(n: number): number[] {
+  if (n === 1) return [0];
+  if (n === 2) return [0, 1];
+
+  const items: number[] = [0, 1]; 
+  while (items.length < n) {
+    items.push(items[items.length - 2] + items[items.length - 1]);
+  }
+
+  return items;
+}
+
+function print(n: number) {
+  fibonacci(n).forEach(fib => console.log(fib));
+}
+
+// Print first 10 Fibonacci numbers.
+print(10);
+```
+
+**Good:**
+
+```ts
+// Generates an infinite stream of Fibonacci numbers.
+// The generator doesn't keep the array of all numbers.
+function* fibonacci(): IterableIterator<number> {
+  let [a, b] = [0, 1];
+ 
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+
+function print(n: number) {
+  let i = 0;
+  for (const fib in fibonacci()) {
+    if (i++ === n) break;  
+    console.log(fib);
+  }  
+}
+
+// Print first 10 Fibonacci numbers.
+print(10);
+```
+
+There are libraries that allow working with iterables in a simillar way as with native arrays, by
+chaining methods like `map`, `slice`, `forEach` etc. See [itiriri](https://www.npmjs.com/package/itiriri) for
+an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables). 
+
+```ts
+import itiriri from 'itiriri';
+
+function* fibonacci(): IterableIterator<number> {
+  let [a, b] = [0, 1];
+ 
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+
+itiriri(fibonacci())
+  .take(10)
+  .forEach(fib => console.log(fib));
+```
+
+**[⬆ back to top](#table-of-contents)**
+
 ## Objects and Data Structures
 
 ## オブジェクトとデータ構造
@@ -1369,6 +1451,71 @@ interface Config {
   readonly host: string;
   readonly port: string;
   readonly db: string;
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+### type vs. interface
+
+### タイプ VS インタフェース
+
+Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
+For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
+
+union や intersection が必要な場合は type を使用してください。
+extends や impliments がほしいときにはinterfaceを使います。
+厳密なルールはありませんが、その時に合ったものを使ってください。
+TypeScriptの `type` と `interface` の違いについてのより詳細な説明はこちらの [回答](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) を参照してください。
+
+**Bad:**
+
+```ts
+interface EmailConfig {
+  // ...
+}
+
+interface DbConfig {
+  // ...
+}
+
+interface Config {
+  // ...
+}
+
+//...
+
+type Shape {
+  // ...
+}
+```
+
+**Good:**
+
+```ts
+
+type EmailConfig {
+  // ...
+}
+
+type DbConfig {
+  // ...
+}
+
+type Config  = EmailConfig | DbConfig;
+
+// ...
+
+interface Shape {
+  // ...
+}
+
+class Circle implements Shape {
+  // ...
+}
+
+class Square implements Shape {
+  // ...
 }
 ```
 
@@ -2810,67 +2957,83 @@ review.review();
 
 **[⬆ back to top](#table-of-contents)**
 
-### type vs. interface
+### Organize imports
 
-### タイプ VS インタフェース
+With clean and easy to read import statements you can quickly see the dependencies of current code. Make sure you apply following good practices for `import` statements:
 
-Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
-For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
+- Import statements should be alphabetized and grouped.
+- Unused imports should be removed.
+- Named imports must be alphabetized (i.e. `import {A, B, C} from 'foo';`)
+- Import sources must be alphabetized within groups, i.e.: `import * as foo from 'a'; import * as bar from 'b';`
+- Groups of imports are delineated by blank lines.
+- Groups must respect following order:
+  - Polyfills (i.e. `import 'reflect-metadata';`)
+  - Node builtin modules (i.e. `import fs from 'fs';`)
+  - external modules (i.e. `import { query } from 'itiriri';`)
+  - internal modules (i.e `import { UserService } from 'src/services/userService';`)
+  - modules from a parent directory (i.e. `import foo from '../foo'; import qux from '../../foo/qux';`)
+  - modules from the same or a sibling's directory (i.e. `import bar from './bar'; import baz from './bar/baz';`)
 
-union や intersection が必要な場合は type を使用してください。
-extends や impliments がほしいときにはinterfaceを使います。
-厳密なルールはありませんが、その時に合ったものを使ってください。
-TypeScriptの `type` と `interface` の違いについてのより詳細な説明はこちらの [回答](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) を参照してください。
 
 **Bad:**
 
 ```ts
-interface EmailConfig {
-  // ...
-}
-
-interface DbConfig {
-  // ...
-}
-
-interface Config {
-  // ...
-}
-
-//...
-
-type Shape {
-  // ...
-}
+import { TypeDefinition } from '../types/typeDefinition';
+import { AttributeTypes } from '../model/attribute';
+import { ApiCredentials, Adapters } from './common/api/authorization';
+import fs from 'fs';
+import { ConfigPlugin } from './plugins/config/configPlugin';
+import { BindingScopeEnum, Container } from 'inversify';
+import 'reflect-metadata';
 ```
 
 **Good:**
 
 ```ts
+import 'reflect-metadata';
 
-type EmailConfig {
-  // ...
-}
+import fs from 'fs';
+import { BindingScopeEnum, Container } from 'inversify';
 
-type DbConfig {
-  // ...
-}
+import { AttributeTypes } from '../model/attribute';
+import { TypeDefinition } from '../types/typeDefinition';
 
-type Config  = EmailConfig | DbConfig;
+import { ApiCredentials, Adapters } from './common/api/authorization';
+import { ConfigPlugin } from './plugins/config/configPlugin';
+```
 
-// ...
+**[⬆ back to top](#table-of-contents)**
 
-interface Shape {
-  // ...
-}
+### Use typescript aliases
 
-class Circle implements Shape {
-  // ...
-}
+Create prettier imports by defining the paths and baseUrl properties in the compilerOptions section in the `tsconfig.json`
 
-class Square implements Shape {
-  // ...
-}
+This will avoid long relative paths when doing imports.
+
+**Bad:**
+
+```ts
+import { UserService } from '../../../services/UserService';
+```
+
+**Good:**
+
+```ts
+import { UserService } from '@services/UserService';
+```
+
+```js
+// tsconfig.json
+...
+  "compilerOptions": {
+    ...
+    "baseUrl": "src",
+    "paths": {
+      "@services": ["services/*"]
+    }
+    ...
+  }
+...
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -3046,6 +3209,34 @@ class Client {
     // ...
   }
 };
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+### TODO comments
+
+When you find yourself that you need to leave notes in the code for some later improvements,
+do that using `// TODO` comments. Most IDE have special support for those kind of comments so that
+you can quickly go over the entire list of todos.  
+
+Keep in mind however that a *TODO* comment is not an excuse for bad code. 
+
+**Bad:**
+
+```ts
+function getActiveSubscriptions(): Promise<Subscription[]> {
+  // ensure `dueDate` is indexed.
+  return db.subscriptions.find({ dueDate: { $lte: new Date() } });
+}
+```
+
+**Good**
+
+```ts
+function getActiveSubscriptions(): Promise<Subscription[]> {
+  // TODO: ensure `dueDate` is indexed.
+  return db.subscriptions.find({ dueDate: { $lte: new Date() } });
+}
 ```
 
 **[⬆ back to top](#table-of-contents)**
