@@ -1,11 +1,16 @@
 # clean-code-typescript [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Clean%20Code%20Typescript&url=https://github.com/labs42io/clean-code-typescript)
 
+<!--
 Clean Code concepts adapted for TypeScript.  
+-->
+
 TypeScriptの為のクリーンコード
 
+<!--
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
-[clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)を見て閃きました。
+-->
 
+[clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)を見て閃きました。
 
 ## Table of Contents
 
@@ -26,22 +31,16 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
 ![Humorous image of software quality estimation as a count of how many expletives
 you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
 
+<!--
 Software engineering principles, from Robert C. Martin's book
 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
 adapted for TypeScript. This is not a style guide. It's a guide to producing
 [readable, reusable, and refactorable](https://github.com/ryanmcdermott/3rs-of-software-architecture) software in TypeScript.
 
-Robert C. Martinの書籍 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)をTypeScriptに対応させたソフトウェア工学の原則です。 [翻訳書籍(amazonへのリンク)](https://www.amazon.co.jp/dp/B078HYWY5X)
-これはスタイルガイドではありません。
-TypeScriptで可読性が高く、再利用可能であり、リファクタブルなソフトウェアを生産するためのガイドラインです。
-
 Not every principle herein has to be strictly followed, and even fewer will be
 universally agreed upon. These are guidelines and nothing more, but they are
 ones codified over many years of collective experience by the authors of
 *Clean Code*.
-
-すべての原則に厳密に従う必要はありません、さらに一般に合意されているものはさらに少くなります。
-これらはガイドライン以上でしかありませんが、*Clean Code* の著者達による長年の経験を集めて文書化したものです。
 
 Our craft of software engineering is just a bit over 50 years old, and we are
 still learning a lot. When software architecture is as old as architecture
@@ -49,16 +48,24 @@ itself, maybe then we will have harder rules to follow. For now, let these
 guidelines serve as a touchstone by which to assess the quality of the
 TypeScript code that you and your team produce.
 
-ソフトウェア工学の歴史はほんの50年を少し超えた程度であり、未だに私達は多くのことを学び続けています。
-ソフトウェアアーキテクチャが建築と同くらい歴史を持っていたならば、おそらく従うべき原則はより厳しくなっていたでしょう。
-現時点では、このガイドラインは、あなたとあなたのチームが作成したTypeScriptコードの品質を評価するための基準として役立つでしょう。
-
 One more thing: knowing these won't immediately make you a better software
 developer, and working with them for many years doesn't mean you won't make
 mistakes. Every piece of code starts as a first draft, like wet clay getting
 shaped into its final form. Finally, we chisel away the imperfections when
 we review it with our peers. Don't beat yourself up for first drafts that need
 improvement. Beat up the code instead!
+-->
+
+Robert C. Martinの書籍 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)をTypeScriptに対応させたソフトウェア工学の原則です。 [翻訳書籍(amazonへのリンク)](https://www.amazon.co.jp/dp/B078HYWY5X)
+これはスタイルガイドではありません。
+TypeScriptで可読性が高く、再利用可能であり、リファクタブルなソフトウェアを生産するためのガイドラインです。
+
+すべての原則に厳密に従う必要はありません、さらに一般に合意されているものはさらに少くなります。
+これらはガイドライン以上でしかありませんが、*Clean Code* の著者達による長年の経験を集めて文書化したものです。
+
+ソフトウェア工学の歴史はほんの50年を少し超えた程度であり、未だに私達は多くのことを学び続けています。
+ソフトウェアアーキテクチャが建築と同くらい歴史を持っていたならば、おそらく従うべき原則はより厳しくなっていたでしょう。
+現時点では、このガイドラインは、あなたとあなたのチームが作成したTypeScriptコードの品質を評価するための基準として役立つでしょう。
 
 それからもう一つ：
 これらを知ったからと言ってすぐに優秀なソフトウェア開発者となるわけではありませんし、長年これに従って作業を行っても間違いを犯さないわけではありません。
@@ -66,7 +73,6 @@ improvement. Beat up the code instead!
 最終的に同僚とこれをレビューする時、不完全な部分を取り除いていきます。
 最初のドラフトに改善が必要となった時、自分自身を責めないでください。
 代わりにコードを責めましょう！
-
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -78,7 +84,9 @@ improvement. Beat up the code instead!
 
 ### 意味のある変数名を使う
 
+<!--
 Distinguish names in such a way that the reader knows what the differences offer.
+-->
 
 何を意味してるかを読み手が区別できる名前を付けましょう。
 
@@ -105,7 +113,9 @@ function between<T>(value: T, left: T, right: T): boolean {
 
 ### 発音可能な変数名を使う
 
+<!--
 If you can’t pronounce it, you can’t discuss it without sounding like an idiot.
+-->
 
 あなたがそれを発音できないなら、まぬけに聞こえてまともな論議になりません。
 
@@ -155,7 +165,9 @@ function getUser(): User;
 
 ### 検索可能な名前を使う
 
+<!--
 We will read more code than we will ever write. It's important that the code we do write is readable and searchable. By not naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) can help identify unnamed constants.
+ -->
 
 私達は書いた以上のコードを読むでしょう。
 そのため書いたコードは読みやすく探しやすいコードであることが重要になってきます。
@@ -215,8 +227,10 @@ for (const [id, user] of users) {
 
 ### メンタルマップを避ける
 
+<!--
 Explicit is better than implicit.
 *Clarity is king.*
+ -->
 
 明示的は暗黙的より優れています。
 *Clarity is king.*
@@ -243,7 +257,9 @@ const transaction = charge(user, subscription);
 
 ### 不要な文脈を追加しない
 
+<!--
 If your class/type/object name tells you something, don't repeat that in your variable name.
+ -->
 
 もしあなたの class/type/object の名前が何かを伝えているのなら、あなたの変数名の中でそのことを繰り返さないでください。
 
@@ -281,7 +297,9 @@ function print(car: Car): void {
 
 ### 短絡評価や条件式の代わりにデフォルト引数を使用する
 
+<!--
 Default arguments are often cleaner than short circuiting.
+ -->
 
 デフォルト引数は、短絡評価よりもきれいなことがよくあります。
 
@@ -312,29 +330,17 @@ function loadPages(count: number = 10) {
 
 ### 関数の引数 (理想は２つ以下)
 
+<!--
 Limiting the amount of function parameters is incredibly important because it makes testing your function easier.
 Having more than three leads to a combinatorial explosion where you have to test tons of different cases with each separate argument.  
-
-関数における引数の数を制限することは非常に重要です。
-なぜならそれは貴方の関数のテストをシンプルにするからです。
-3つ以上になると、引数ごとの数だけ違うケースをテストしなければならず、組み合わせは爆発的に増加します。
 
 One or two arguments is the ideal case, and three should be avoided if possible. Anything more than that should be consolidated.
 Usually, if you have more than two arguments then your function is trying to do too much.
 In cases where it's not, most of the time a higher-level object will suffice as an argument.  
 
-理想的な引数の数は１〜２個であり、３つは避けるべきであり。
-それ以上の数になるならば結合するべきです。
-普通は2つ以上の引数がある場合、関数がやりすぎています。
-そうでない場合は、上位のオブジェクトを引数にすれば十分です。
-
 Consider using object literals if you are finding yourself needing a lot of arguments.  
 
-たくさんの引数が必要な場合はオブジェクトリテラルの利用を検討してください。
-
 To make it obvious what properties the function expects, you can use the [destructuring](https://basarat.gitbooks.io/typescript/docs/destructuring.html) syntax.
-
-関数がどのようなプロパティを持っているかを明示的にするた めに、[destructuring](https://basarat.gitbooks.io/typescript/docs/destructuring.html)構文を使うことができます。
 
 This has a few advantages:
 
@@ -343,6 +349,20 @@ This has a few advantages:
 2. Destructuring also clones the specified primitive values of the argument object passed into the function. This can help prevent side effects. Note: objects and arrays that are destructured from the argument object are NOT cloned.
 
 3. TypeScript warns you about unused properties, which would be impossible without destructuring.
+ -->
+
+関数における引数の数を制限することは非常に重要です。
+なぜならそれは貴方の関数のテストをシンプルにするからです。
+3つ以上になると、引数ごとの数だけ違うケースをテストしなければならず、組み合わせは爆発的に増加します。
+
+理想的な引数の数は１〜２個であり、３つは避けるべきであり。
+それ以上の数になるならば結合するべきです。
+普通は2つ以上の引数がある場合、関数がやりすぎています。
+そうでない場合は、上位のオブジェクトを引数にすれば十分です。
+
+たくさんの引数が必要な場合はオブジェクトリテラルの利用を検討してください。
+
+関数がどのようなプロパティを持っているかを明示的にするた めに、[destructuring](https://basarat.gitbooks.io/typescript/docs/destructuring.html)構文を使うことができます。
 
 これにはいくつかの利点があります:
 
@@ -378,7 +398,9 @@ createMenu({
 });
 ```
 
+<!--
 You can further improve readability by using [type aliases](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases):
+ -->
 
 [タイプエイリアス](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases)を使うことで、さらに読みやすさ向上させることができます。
 
@@ -404,7 +426,9 @@ createMenu({
 
 ### 関数は１つのことだけを行うべきです
 
+<!--
 This is by far the most important rule in software engineering. When functions do more than one thing, they are harder to compose, test, and reason about. When you can isolate a function to just one action, they can be refactored easily and your code will read much cleaner. If you take nothing else away from this guide other than this, you'll be ahead of many developers.
+ -->
 
 これはソフトウェア・エンジニアリングにおいて、とても重要なルールです。
 関数が1つ以上のことをするとき、それは作成してテストし、推測することをより困難にします。
@@ -474,7 +498,9 @@ addMonthToDate(date, 1);
 
 ### 関数は一つの抽象化に留めること。
 
+<!--
 When you have more than one level of abstraction your function is usually doing too much. Splitting up functions leads to reusability and easier testing.
+ -->
 
 あなたが１つ以上の抽象化を行っている時、関数はやりすぎています。
 機能を分割すれば再利用性とテスト用意性を向上させることができます。
@@ -547,27 +573,29 @@ function parse(tokens: Token[]): SyntaxTree {
 
 ### 承服したコードは消す
 
+<!--
 Do your absolute best to avoid duplicate code.
 Duplicate code is bad because it means that there's more than one place to alter something if you need to change some logic.  
-
-コードの重複を避ける事に最善を尽くしてください。
-重複したコードがあるということは、ロジックの変更を行う時に複数の箇所に同じ変更をする必要があるため、よくありません。
 
 Imagine if you run a restaurant and you keep track of your inventory: all your tomatoes, onions, garlic, spices, etc.
 If you have multiple lists that you keep this on, then all have to be updated when you serve a dish with tomatoes in them.
 If you only have one list, there's only one place to update!  
 
+Oftentimes you have duplicate code because you have two or more slightly different things, that share a lot in common, but their differences force you to have two or more separate functions that do much of the same things. Removing duplicate code means creating an abstraction that can handle this set of different things with just one function/module/class.  
+
+Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself updating multiple places anytime you want to change one thing.
+ -->
+
+コードの重複を避ける事に最善を尽くしてください。
+重複したコードがあるということは、ロジックの変更を行う時に複数の箇所に同じ変更をする必要があるため、よくありません。
+
 貴方がレストランを経営していたとしましょう、そして在庫整理しているとします: トマト、玉ねぎ、ニンニク、スパイスなど、すべてあなたの物です。
 貴方がこの在庫を管理するリストを複数持っていた場合、トマト料理を提供したらリストすべてを更新する必要がでてきます。
 リストが１つだけなら、更新は１箇所済むでしょう！
 
-Oftentimes you have duplicate code because you have two or more slightly different things, that share a lot in common, but their differences force you to have two or more separate functions that do much of the same things. Removing duplicate code means creating an abstraction that can handle this set of different things with just one function/module/class.  
-
 共通点が多いが、２つ以上の小さな違いがあるために、コードが重複してしまうことはよくあります。
 しかしその結果、その違いによってほとんど同じことを行う２つ以上の関数が必要になってしまいます。
 重複したコードを削除するということは、一つの関数/モジュール/クラスで、これらの僅かに異なる一連のものを処理できる抽象化を作るということを意味します。
-
-Getting the abstraction right is critical, that's why you should follow the [SOLID](#solid) principles. Bad abstractions can be worse than duplicate code, so be careful! Having said this, if you can make a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself updating multiple places anytime you want to change one thing.
 
 抽象化を正しく行うことが重要です。
 そのため、SOLID の原則に従う必要があります。
@@ -649,7 +677,9 @@ function showEmployeeList(employee: Developer | Manager) {
 }
 ```
 
+<!--
 You should be critical about code duplication. Sometimes there is a tradeoff between duplicated code and increased complexity by introducing unnecessary abstraction. When two implementations from two different modules look similar but live in different domains, duplication might be acceptable and preferred over extracting the common code. The extracted common code in this case introduces an indirect dependency between the two modules.
+ -->
 
 あなたはコードの重複について批判的であるべきです。
 不必要な抽象化を導入することによって、コードの重複と複雑さの増大との間にトレードオフがあることがあります。
@@ -696,7 +726,9 @@ function createMenu(config: MenuConfig) {
 createMenu({ body: 'Bar' });
 ```
 
+<!--
 Alternatively, you can use destructuring with default values:
+ -->
 
 デフォルト値を利用した分割代入を使う手もあるでしょう：
 
@@ -710,8 +742,10 @@ function createMenu({ title = 'Foo', body = 'Bar', buttonText = 'Baz', cancellab
 createMenu({ body: 'Bar' });
 ```
 
+<!--
 To avoid any side effects and unexpected behavior by passing in explicitly the `undefined` or `null` value, you can tell the TypeScript compiler to not allow it.
 See [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) option in TypeScript.
+ -->
 
 明示的に `undefined` や `null` の値を渡して副作用や予期しない動作を避けるため、TypeScriptコンパイラにそれを許容させない設定もできます。
 TypeScriptの [`--strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) 設定を参照
@@ -722,8 +756,10 @@ TypeScriptの [`--strictNullChecks`](https://www.typescriptlang.org/docs/handboo
 
 ### 関数の引数にフラグは渡さない
 
+<!--
 Flags tell your user that this function does more than one thing.
 Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+ -->
 
 フラグは、この関数が複数の事をしていと利用者に伝えています。
 関数は一つのことをするべきなので、Boolean値によって異なる処理をしている場合は関数を別にします。
@@ -758,25 +794,27 @@ function createFile(name: string) {
 
 ### 副作用を避ける（その１）
 
+<!--
 A function produces a side effect if it does anything other than take a value in and return another value or values.
 A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.  
-
-関数が値を受け取り何かを返す以外の事をした場合、副作用を引き起こします。
-副作用とはファイルへの書き込みや、グローバル変数の変更、間違って全財産を見知らぬ他人に振り込んでしまうような事です。
 
 Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file.
 What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file.
 Have one service that does it. One and only one.  
+
+The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
+ -->
+
+関数が値を受け取り何かを返す以外の事をした場合、副作用を引き起こします。
+副作用とはファイルへの書き込みや、グローバル変数の変更、間違って全財産を見知らぬ他人に振り込んでしまうような事です。
 
 前に上げた例のように、ファイルに書き込む必要があるかもしれません。
 やるべきことは、それを行う場所を一つの場所に留めることです。
 特定のファイルに書き込む関数やクラスが複数存在しないようにしてください。
 それをする、唯一無二のサービスを作ります。
 
-The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier than the vast majority of other programmers.
 重要なのは、構造を持たずオブジェクト間で状態を共有したり、任意のものに書き込み可能な可変データ型を使ったり、副作用が発生する場所を一箇所にしないなどの、一般的な落とし穴を避けることです。
 貴方がこれをできるようになれば、大多数の他のプログラマーより幸せになれるでしょう。
-
 
 **Bad:**
 
@@ -816,30 +854,32 @@ console.log(name);
 
 ### 副作用を避ける(その２)
 
+<!--
 In JavaScript, primitives are passed by value and objects/arrays are passed by reference. In the case of objects and arrays, if your function makes a change in a shopping cart array, for example, by adding an item to purchase, then any other function that uses that cart array will be affected by this addition. That may be great, however it can be bad too. Let's imagine a bad situation:  
-
-JavaScriptではプリミティブ型は値で渡され、オブジェクトや配列は参照によって渡されます。
-オブジェクトや配列の場合、商品を購入するなどしてショッピングカート配列を更新した場合、ショッピングカート配列を使用する他のすべての関数が追加の影響を受けてしまいます。
-それは素晴らしく思えますが、悪いことも起こります。
-悪い状況を想像してみましょう。
 
 The user clicks the "Purchase", button which calls a purchase function that spawns a network request and sends the cart array to the server. Because of a bad network connection, the purchase function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because it has a reference to a shopping cart array that the *addItemToCart* function modified by adding an unwanted item.  
 
-ユーザーが"購入"ボタンをクリックすると、ネットワークのリクエストを生成してカート配列をサーバーに送信する、*purchase*  関数が呼ばれます。
-ネットワークの状況が悪いため、*purchase* 関数は要求を繰り返し続けなければいけません。
-そして、ネットワークのリクエストが成功する前にユーザーがほしくないアイテムを"カートに入れる"ボタンを誤って押してしまったらどうなるでしょうか？
-ネットワークのリクエストが成功した時 *addItemToCart* 関数はカート配列への参照を持っていたため、 不要なアイテムをカート配列へ追加してしまいます、*purchase* 関数は間違って追加された商品を送信してしまいます。
-
 A great solution would be for the *addItemToCart* to always clone the cart, edit it, and return the clone. This ensures that no other functions that are holding onto a reference of the shopping cart will be affected by any changes.  
-
-良い解決策は  *addItemToCart* 関数が常にカートのクローンを作成し、それを編集してさらにクローンを返すことです。
-これで、ショッピングカート配列の参照を保持している他の関数が変更の影響を受けなくなります。
 
 Two caveats to mention to this approach:
 
 1. There might be cases where you actually want to modify the input object, but when you adopt this programming practice you will find that those cases are pretty rare. Most things can be refactored to have no side effects! (see [pure function](https://en.wikipedia.org/wiki/Pure_function))
 
 2. Cloning big objects can be very expensive in terms of performance. Luckily, this isn't a big issue in practice because there are great libraries that allow this kind of programming approach to be fast and not as memory intensive as it would be for you to manually clone objects and arrays.
+ -->
+
+JavaScriptではプリミティブ型は値で渡され、オブジェクトや配列は参照によって渡されます。
+オブジェクトや配列の場合、商品を購入するなどしてショッピングカート配列を更新した場合、ショッピングカート配列を使用する他のすべての関数が追加の影響を受けてしまいます。
+それは素晴らしく思えますが、悪いことも起こります。
+悪い状況を想像してみましょう。
+
+ユーザーが"購入"ボタンをクリックすると、ネットワークのリクエストを生成してカート配列をサーバーに送信する、*purchase*  関数が呼ばれます。
+ネットワークの状況が悪いため、*purchase* 関数は要求を繰り返し続けなければいけません。
+そして、ネットワークのリクエストが成功する前にユーザーがほしくないアイテムを"カートに入れる"ボタンを誤って押してしまったらどうなるでしょうか？
+ネットワークのリクエストが成功した時 *addItemToCart* 関数はカート配列への参照を持っていたため、 不要なアイテムをカート配列へ追加してしまいます、*purchase* 関数は間違って追加された商品を送信してしまいます。
+
+良い解決策は  *addItemToCart* 関数が常にカートのクローンを作成し、それを編集してさらにクローンを返すことです。
+これで、ショッピングカート配列の参照を保持している他の関数が変更の影響を受けなくなります。
 
 このアプローチにおける２つの注意点：
 
@@ -872,7 +912,9 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 
 ### グローバル関数には書き込まなh
 
+<!--
 Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a diff method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
+ -->
 
 グローバルを汚染するのはJavaScriptのバッドプラクティスです。
 なぜなら他のライブラリをクラッシュさせるかもしれないし、あなたのAPIを使ってるユーザーは本番環境で例外が発生するまで何が起こってるか分からないからです。
@@ -916,7 +958,9 @@ class MyArray<T> extends Array<T> {
 
 ### 命令形プログラミングより関数型プログラミングを好む
 
+<!--
 Favor this style of programming when you can.
+ -->
 
 できるなら、あなたはこのプログラミングスタイルを好きになってください。
 
@@ -1031,7 +1075,9 @@ if (!isEmailUsed(node)) {
 
 ### 条件を避ける
 
+<!--
 This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
+ -->
 
 これは一見不可能な作業に見えます。
 これを聞いた時、ほとんどの人は「if文を使わないとしたらどうすれば良いのか？」と言います。
@@ -1106,9 +1152,11 @@ class Cessna extends Airplane {
 
 ### 型チェックを避ける
 
+<!--
 TypeScript is a strict syntactical superset of JavaScript and adds optional static type checking to the language.
 Always prefer to specify types of variables, parameters and return values to leverage the full power of TypeScript features.
 It makes refactoring more easier.
+ -->
 
 TypeScriptはJavaScriptの厳密な構文スーパセットであり、言語へ静的型チェックのオプションを追加します。
 TypeScriptの機能を最大限に活用するには、常に変数、パラメータ、戻り値の方を指定する事をおすすめします。
@@ -1142,7 +1190,9 @@ function travelToTexas(vehicle: Vehicle) {
 
 ### 行き過ぎた最適化を避ける
 
+<!--
 Modern browsers do a lot of optimization under-the-hood at runtime. A lot of times, if you are optimizing then you are just wasting your time. There are good [resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers) for seeing where optimization is lacking. Target those in the meantime, until they are fixed if they can be.
+ -->
 
 今のブラウザは実行時に内部で多くの最適化を行っています。
 貴方が最適化に多数の時間を費やしてるなら、あなたは時間を無駄にしています。
@@ -1173,8 +1223,10 @@ for (let i = 0; i < list.length; i++) {
 
 ### 使っていないコードは削除する
 
+<!--
 Dead code is just as bad as duplicate code. There's no reason to keep it in your codebase.
 If it's not being called, get rid of it! It will still be safe in your version history if you still need it.
+ -->
 
 使われていないコードは重複したコードと同じくらい悪いものです。
 あなたのコードにそれを残しておく理由はありません。
@@ -1212,6 +1264,7 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 ### イテレーターとジェネレーターを使う
 
+<!--
 Use generators and iterables when working with collections of data used like a stream.  
 There are some good reasons:
 - decouples the callee from the generator implementation in a sense that callee decides how many
@@ -1219,6 +1272,7 @@ items to access
 - lazy execution, items are streamed on demand
 - built-in support for iterating items using the `for-of` syntax
 - iterables allow to implement optimized iterator patterns
+ -->
 
 ストリームデータを持つコレクションを扱うときは、ジェネレーターとイテレーターを使ってください。
 いくつかの理由があります：
@@ -1281,9 +1335,11 @@ function print(n: number) {
 print(10);
 ```
 
+<!--
 There are libraries that allow working with iterables in a simillar way as with native arrays, by
 chaining methods like `map`, `slice`, `forEach` etc. See [itiriri](https://www.npmjs.com/package/itiriri) for
 an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables). 
+ -->
 
 `map`、 `slice`、 `forEach`などのメソッドをチェーンさせることで、ネイティブの配列と同じようなイテラブルを扱うことを可能にするライブラリもあります。
 (イテラブルを使用した高度な操作の例については[itiriri](https://www.npmjs.com/package/itiriri)を参照、または非同期イテラブルの操作については [itiriri-async](https://www.npmjs.com/package/itiriri-async) を参照)
@@ -1315,6 +1371,7 @@ itiriri(fibonacci())
 
 ### getter と setter を使う
 
+<!--
 TypeScript supports getter/setter syntax.
 Using getters and setters to access data from objects that encapsulate behavior could be better that simply looking for a property on an object.
 "Why?" you might ask. Well, here's a list of reasons:
@@ -1324,6 +1381,7 @@ Using getters and setters to access data from objects that encapsulate behavior 
 * Encapsulates the internal representation.
 * Easy to add logging and error handling when getting and setting.
 * You can lazy load your object's properties, let's say getting it from a server.
+ -->
 
 TypeScriptはgetter/setter構文をサポートしています。
 getterとsetterを使って振る舞いをカプセル化してオブジェクトにアクセスするほうが、単純なプロパティでオブジェクトにアクセスするよいも優れている可能性があります。
@@ -1395,7 +1453,9 @@ account.balance = 100;
 
 ### オブジェクトにprivate/protectedメンバーをもたせる
 
+<!--
 TypeScript supports `public` *(default)*, `protected` and `private` accessors on class members.  
+ -->
 
 TypeScriptはクラスメンバーに対して`public`、*(default)*、`protected`、`private` アクセサをサポートしています。
 
@@ -1442,8 +1502,10 @@ class Circle {
 
 ### 普遍性を好む
 
+<!--
 TypeScript's type system allows you to mark individual properties on an interface / class as *readonly*. This allows you to work in a functional way (unexpected mutation is bad).  
 For more advanced scenarios there is a built-in type `Readonly` that takes a type `T` and marks all of its properties as readonly using mapped types (see [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)).
+ -->
 
 TypeScriptの型システムではインタフェース/クラスのプロパティに *readonly* とマークすることができます。
 これを用いると、あなたは関数型で書くことができるようになります。
@@ -1477,8 +1539,10 @@ interface Config {
 
 ### タイプ VS インタフェース
 
+<!--
 Use type when you might need a union or intersection. Use interface when you want `extends` or `implements`. There is no strict rule however, use the one that works for you.  
 For a more detailed explanation refer to this [answer](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) about the differences between `type` and `interface` in TypeScript.
+ -->
 
 union や intersection が必要な場合は type を使用してください。
 extends や impliments がほしいときにはinterfaceを使います。
@@ -1819,7 +1883,9 @@ const query = new QueryBuilder()
 
 ### 単一責任の原則 (SRP)
 
+<!--
 As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons to change. Minimizing the amount of times you need to change a class is important. It's important because if too much functionality is in one class and you modify a piece of it, it can be difficult to understand how that will affect other dependent modules in your codebase.
+ -->
 
 Clean Code では「クラス変更される理由は１つ以上あってはならない」と述べられています。
 飛行機へ乗る時にスーツケースを一つしか持てない時のように、多くの機能をクラスに詰め込むのは魅力的に見えます。
@@ -1880,7 +1946,9 @@ class UserSettings {
 
 ### オープン・クローズドの原則 (OCP)
 
+<!--
 As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
+ -->
 
 Bertrand Meyer 氏曰く、「ソフトウェアの関連(クラス。モジュール、関数など)は拡張のために開かれているべきですが、変更のためには閉じられているべき」と言われています。
 これはどういう意味かというと、この原則は基本的に、既存のコードを変更せずにユーザーが新しい機能を追加できるようにするべきと言う意味です。
@@ -1978,9 +2046,11 @@ class HttpRequester {
 
 ### リスコフの置換原則 (LSP)
 
+<!--
 This is a scary term for a very simple concept. It's formally defined as "If S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e., objects of type S may substitute objects of type T) without altering any of the desirable properties of that program (correctness, task performed, etc.)." That's an even scarier definition.  
   
 The best explanation for this is if you have a parent class and a child class, then the base class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
+ -->
 
 これは非常に単純な概念と言うには恐ろしいものです。
 S型がT型の派生型の場合、T型のオブジェクトはプログラムの特性(正確さや処理など)を変更すること無く、S型で置き換えることができる(つまり、S型のオブジェクトをT型のオブジェクトと置き換えることができる)というやっかいな定義です。
@@ -2104,8 +2174,10 @@ renderLargeShapes(shapes);
 
 ### インタフェース分離の原則 (ISP)
 
+<!--
 ISP states that "Clients should not be forced to depend upon interfaces that they do not use.". This principle is very much related to the Single Responsibility Principle.
 What it really means is that you should always design your abstractions in a way that the clients that are using the exposed methods do not get the whole pie instead. That also include imposing the clients with the burden of implementing methods that they don’t actually need.
+ -->
 
 ISPでは「クライアントは彼らが利用していないインタフェースへの依存を共用してはならない」と述べられています。
 この原則は、単一責任原則と非常に密接な関係にあります。
@@ -2192,6 +2264,7 @@ class EconomicPrinter implements Printer {
 
 ### 依存関係逆転の原則 (DIP)
 
+<!--
 This principle states two essential things:
 
 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
@@ -2201,6 +2274,7 @@ This principle states two essential things:
 This can be hard to understand at first, but if you've worked with Angular, you've seen an implementation of this principle in the form of Dependency Injection (DI). While they are not identical concepts, DIP keeps high-level modules from knowing the details of its low-level modules and setting them up. It can accomplish this through DI. A huge benefit of this is that it reduces the coupling between modules. Coupling is a very bad development pattern because it makes your code hard to refactor.  
   
 DIP is usually achieved by a using an inversion of control (IoC) container. An example of a powerful IoC container for TypeScript is [InversifyJs](https://www.npmjs.com/package/inversify)
+ -->
 
 この原則では２つの重要な事を述べています：
 
@@ -2309,16 +2383,18 @@ await report = await reader.read('report.json');
 
 ## テスト
 
+<!--
 Testing is more important than shipping. If you have no tests or an inadequate amount, then every time you ship code you won't be sure that you didn't break anything.
 Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches)
 is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a good coverage tool.
+
+There's no excuse to not write tests. There are plenty of good JS test frameworks with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
+ -->
 
 テストはリリースよりも重要です。
 あなたのテストをしていないか、不十分であった場合、あなたがリリースするたびに何も壊していないという確信を得ることは無いでしょう。
 何が適切な量を構成するのは貴方のチーム次第ですが、カバレッジ100%(すべてのステートメントと分岐を含め)にするということは、非常に高い信頼性とともに、開発者の安心を持つことが出来ます。
 つまり、優れたテストフレームワークとカバレッジツールを使う必要があります。
-
-There's no excuse to not write tests. There are plenty of good JS test frameworks with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
 
 テストを書かない理由はありません。
 TypeScriptの方をサポートする優れたJSテストフレームワークはたくさんあるので、チームが好むものを見つけてください。
@@ -2328,11 +2404,13 @@ TypeScriptの方をサポートする優れたJSテストフレームワーク�
 
 ### The three laws of TDD
 
+<!--
 1. You are not allowed to write any production code unless it is to make a failing unit test pass.
 
 2. You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
 
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+ -->
 
 ### RDD３つの法則
 
@@ -2348,6 +2426,7 @@ TypeScriptの方をサポートする優れたJSテストフレームワーク�
 
 ### F.I.R.S.T. の規則
 
+<!--
 Clean tests should follow the rules:
 
 * **Fast** tests should be fast because we want to run them frequently.
@@ -2359,6 +2438,7 @@ Clean tests should follow the rules:
 * **Self-Validating** a test should answer with either *Passed* or *Failed*. You don't need to compare log files to answer if a test passed.
 
 * **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
+ -->
 
 綺麗なテストは以下の規則に従います：
 
@@ -2378,7 +2458,9 @@ Clean tests should follow the rules:
 
 ### テスト毎に単純なコンセプトを持つ
 
+<!--
 Tests should also follow the *Single Responsibility Principle*. Make only one assert per unit test.
+ -->
 
 テストは *単一責任原則* に従うべきです。単体テスト毎にアサーションを１つ持ちましょう。
 
@@ -2432,7 +2514,9 @@ describe('AwesomeDate', () => {
 
 ### テストの名前は何をしてるか、理解しやすくしましょう。
 
+<!--
 When a test fail, it's name is the first indication of what may have gone wrong.
+ -->
 
 テストが失敗した場合に、何が間違ってたが気づけるような名前が重要です。
 
@@ -2474,9 +2558,11 @@ describe('Calendar', () => {
 
 ### コールバックではなく Promise を使う
 
+<!--
 Callbacks aren't clean, and they cause excessive amounts of nesting *(the callback hell)*.  
 There are utilities that transform existing functions using the callback style to a version that returns promises
 (for Node.js see [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original), for general purpose see [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify))
+ -->
 
 コールバックは綺麗では無く、過度のネスト(*コールバック地獄*)を引き起こします。
 コールバックスタイルの既存関数をPromiseスタイルに変更するユーティリティがあります。
@@ -2532,6 +2618,7 @@ downloadPage('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', 'article.html'
   .catch(error => console.error(error));  
 ```
 
+<!--
 Promises supports a few helper methods that help make code more conscise:  
 
 | Pattern                  | Description                                |  
@@ -2540,6 +2627,9 @@ Promises supports a few helper methods that help make code more conscise:
 | `Promise.reject(error)`  | Convert an error into a rejected promise.  |  
 | `Promise.all(promises)`  |Returns a new promise which is fulfilled with an array of fulfillment values for the passed promises or rejects with the reason of the first promise that rejects. |
 | `Promise.race(promises)`|Returns a new promise which is fulfilled/rejected with the result/error of the first settled promise from the array of passed promises. |
+
+`Promise.all` is especially useful when there is a need to run tasks in parallel. `Promise.race` makes it easier to implement things like timeouts for promises.
+ -->
 
 Promisesは、コードをより簡潔にするためのヘルパーメソッドをいくつかサポートします。
 
@@ -2550,8 +2640,6 @@ Promisesは、コードをより簡潔にするためのヘルパーメソッド
 | `Promise.all(promises)`  | 渡されたプロミスの配列がすべて正常に完了するか、一部でrejectとなった場合 Promise を完了させます。 |
 | `Promise.race(promises)` | 渡されたプロミスの配列の最初に resolve/rejectされた結果で新しいプロミスを返します。 |
 
-`Promise.all` is especially useful when there is a need to run tasks in parallel. `Promise.race` makes it easier to implement things like timeouts for promises.
-
 `Promise.all`はタスクを並行して実行する必要がある時に特に便利です。
 `Promise.race` はPromiseにタイムアウトのようなものを実装する時に、それを簡単に実現できます。
 
@@ -2561,7 +2649,9 @@ Promisesは、コードをより簡潔にするためのヘルパーメソッド
 
 ### Async/Await はPromisesよりも更に綺麗です
 
+<!--
 With `async`/`await` syntax you can write code that is far cleaner and more understandable that chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
+ -->
 
 `async`/`await`構文を使うと、promiseチェーンを作るよりはるかに綺麗で理解しやすいコードを書くことが出来ます。
 `async` キーワードを接頭辞とした関数内では (promiseが使用されている場合) `await` キーワードでコードの実行を一時停止するようjavascriptランタイムに指示することが出来ます。
@@ -2614,8 +2704,10 @@ try {
 
 ## エラー処理
 
+<!--
 Thrown errors are a good thing! They mean the runtime has successfully identified when something in your program has gone wrong and it's letting you know by stopping function
 execution on the current stack, killing the process (in Node), and notifying you in the console with a stack trace.
+ -->
 
 例外が発生するのは良いことです！
 これはプログラムの何かが正常に動作しなかった事をランタイムが正常に判別出来たことを意味します。
@@ -2625,15 +2717,17 @@ execution on the current stack, killing the process (in Node), and notifying you
 
 ### ThrowやRejectの時にErrorを使う
 
+<!--
 JavaScript as well as TypeScript allow you to `throw` any object. A Promise can also be rejected with any reason object. 
-
-JavaScriptとTypeScriptは任意のオブジェクトを `throw` できます。
-Promiseの場合は `reject` することができます。
 
 It is advisable to use the `throw` syntax with an `Error` type. This is because your error might be caught in higher level code with a `catch` syntax.
 It would be very confusing to catch a string message there and would make
 [debugging more painful](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error).  
 For the same reason you should reject promises with `Error` types.
+ -->
+
+JavaScriptとTypeScriptは任意のオブジェクトを `throw` できます。
+Promiseの場合は `reject` することができます。
 
 `Error` 型と `throw` 構文を使うようにしましょう。
 これは貴方のエラーが `catch` 構文を使ってより高いレベルのコードで補足されるかもしれないからです。
@@ -2671,10 +2765,12 @@ async function get(): Promise<Item[]> {
 }
 ```
 
+<!--
 The benefit of using `Error` types is that it is supported by the syntax `try/catch/finally` and implicitly all errors have the `stack` property which
 is very powerful for debugging.  
 There are also another alternatives, not to use the `throw` syntax and instead always return custom error objects. TypeScript makes this even easier.
 Consider following example:
+ -->
 
 `Error` 型を使う利点は、それが `try/catch/finally` 構文によってサポートされており、暗黙的に `stack` プロパティを持つためデバッグにおいて非常に強力だからです。
 `throw` 構文を使わずに常にカスタムエラーオブジェクトを返すという方法もあります。
@@ -2696,7 +2792,9 @@ function calculateTotal(items: Item[]): Failable<number, 'empty'> {
 }
 ```
 
+<!--
 For the detailed explanation of this idea refer to the [original post](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9).
+ -->
 
 このアイディアの詳細については[元の記事](https://medium.com/@dhruvrajvanshi/making-exceptions-type-safe-in-typescript-c4d200ee78e9)を参照してください。
 
@@ -2706,7 +2804,9 @@ For the detailed explanation of this idea refer to the [original post](https://m
 
 ### 例外を握りつぶさない
 
+<!--
 Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Logging the error to the console (`console.log`) isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
+ -->
 
 捉えられた例外に対して何もしないというのは、例外が発生しても例外を発見したり、修正することができなくなります。
 コンソール (`console.log`)にエラーを表示するのは、頻繁にコーンソール表示の海に溺れてしまうためあまり良いことではありません。
@@ -2748,7 +2848,9 @@ try {
 
 ### reject された promise を無視しない
 
+<!--
 For the same reason you shouldn't ignore caught errors from `try/catch`.
+ -->
 
 同じ理由で、`try/catch` された例外を無視してはいけません。
 
@@ -2794,7 +2896,11 @@ try {
 
 ## フォーマット
 
+<!--
 Formatting is subjective. Like many rules herein, there is no hard and fast rule that you must follow. The main point is *DO NOT ARGUE* over formatting. There are tons of tools to automate this. Use one! It's a waste of time and money for engineers to argue over formatting. The general rule to follow is *keep consistent formatting rules*.  
+
+For TypeScript there is a powerful tool called [TSLint](https://palantir.github.io/tslint/). It's a static analysis tool that can help you improve dramatically the readability and maintainability of your code. There are ready to use TSLint configurations that you can reference in your projects:
+ -->
 
 フォーマットは主観的です。
 ここにある多くの規則のように、貴方が従わなければならない厳しく厳密なルールではありません。
@@ -2803,8 +2909,6 @@ Formatting is subjective. Like many rules herein, there is no hard and fast rule
 それを使ってくさい。
 エンジニアがフォーマットについて論議するのは時間とお金の無駄です。
 従うべき一般的な規則は *一貫したフォーマットルールを守る* ことです。
-
-For TypeScript there is a powerful tool called [TSLint](https://palantir.github.io/tslint/). It's a static analysis tool that can help you improve dramatically the readability and maintainability of your code. There are ready to use TSLint configurations that you can reference in your projects:
 
 TypeScriptには[TSLint](https://palantir.github.io/tslint/)という強力なツールがあります。
 コードの読みやすさと保守性を劇的に向上させるのに役立つ静的分析ツールです。
@@ -2824,7 +2928,9 @@ TypeScriptには[TSLint](https://palantir.github.io/tslint/)という強力な�
 
 * [Immutable](https://www.npmjs.com/package/tslint-immutable) - rules to disable mutation in TypeScript
 
+<!--
 Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html) source.
+ -->
 
 [TypeScriptスタイルガイドとコーディング規約](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html)も参照してください。
 
@@ -2832,7 +2938,9 @@ Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://
 
 ### 一貫性を持った大文字を使用すること
 
+<!--
 Capitalization tells you a lot about your variables, functions, etc. These rules are subjective, so your team can choose whatever they want. The point is, no matter what you all choose, just *be consistent*.
+ -->
 
 大文字と小文字は変数や関数について多くのことを教えてくれます。
 このルールは主観的なものなので、チームは必要に応じて好きなものを選ぶことができます。
@@ -2870,8 +2978,10 @@ type Animal { /* ... */ }
 type Container { /* ... */ }
 ```
 
+<!--
 Prefer using `PascalCase` for class, interface, type and namespace names.  
 Prefer using `camelCase` for variables, functions and class members.
+ -->
 
 クラス、インタフェース、タイプ、名前空間には `PascalCase` の利用が好ましいでしょう。
 変数、関数、クラスメンバーには `camelCase` が好ましいでしょう。
@@ -2882,8 +2992,10 @@ Prefer using `camelCase` for variables, functions and class members.
 
 ### 関数の呼び出し元と定義は近いはずです。
 
+<!--
 If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee.
 We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
+ -->
 
 関数が別の関数を呼び出す場合は、それらの関数をソースファイル内のすぐ近くに定義してください。
 理想的には、呼び出し元を定義の真上に置いてください。
@@ -2978,6 +3090,7 @@ review.review();
 
 ### import文を整理する
 
+<!--
 With clean and easy to read import statements you can quickly see the dependencies of current code. Make sure you apply following good practices for `import` statements:
 
 - Import statements should be alphabetized and grouped.
@@ -2992,6 +3105,7 @@ With clean and easy to read import statements you can quickly see the dependenci
   - internal modules (i.e `import { UserService } from 'src/services/userService';`)
   - modules from a parent directory (i.e. `import foo from '../foo'; import qux from '../../foo/qux';`)
   - modules from the same or a sibling's directory (i.e. `import bar from './bar'; import baz from './bar/baz';`)
+ -->
 
 わかりやすく読みやすいimport文を使用すると、現在のコードの依存関係をすばやく確認できます。
 `import` 構文には以下の良いプラクティスを必ず適用してください。
@@ -3082,10 +3196,12 @@ import { UserService } from '@services/UserService';
 
 ## コメント
 
+<!--
 The use of a comments is an indication of failure to express without them. Code should be the only source of truth.
 
 > Don’t comment bad code—rewrite it.  
 > — *Brian W. Kernighan and P. J. Plaugher*
+ -->
 
 コメントを使用するのは、それなしでは表現できなかったことを表します。
 コードが唯一の真実であるべきです。
@@ -3097,7 +3213,9 @@ The use of a comments is an indication of failure to express without them. Code 
 
 ### コメントではなく、自己説明的なコードを好む
 
+<!--
 Comments are an apology, not a requirement. Good code mostly documents itself.
+ -->
 
 コメントは弁明であり、必須ではありません。
 良いコードはほとんど文章のようになっています。
@@ -3123,7 +3241,9 @@ if (isSubscriptionActive) { /* ... */ }
 
 ### コメントアウトされたコードを残さない
 
+<!--
 Version control exists for a reason. Leave old code in your history.
+ -->
 
 バージョン管理ツールが存在する理由です、古いコードは履歴に残しましょう。
 
@@ -3153,7 +3273,9 @@ type User = {
 
 ### 日付を持ったコメントはいりません
 
+<!--
 Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use git log to get history!
+ -->
 
 バージョン管理ツールを使うことを覚えましょう！
 使ってないコード、コメントアウトされたコード、日記のようなコメントは不要です。
@@ -3187,8 +3309,10 @@ function combine(a: number, b: number): number {
 
 ### 位置取りの印として使うのをさける
 
+<!--
 They usually just add noise. Let the functions and variable names along with the proper indentation and formatting give the visual structure to your code.  
 Most IDE support code folding feature that allows you to collapse/expand blocks of code (see Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)).
+ -->
 
 これは単純にノイズです。
 関数と変数名を適切なインデント、フォーマットで使用して、コードの視覚的な構造を持ちましょう。
@@ -3255,11 +3379,18 @@ class Client {
 
 ### TODO comments
 
+<!--
 When you find yourself that you need to leave notes in the code for some later improvements,
 do that using `// TODO` comments. Most IDE have special support for those kind of comments so that
 you can quickly go over the entire list of todos.  
 
 Keep in mind however that a *TODO* comment is not an excuse for bad code. 
+ -->
+
+後で改善が必要と思われるコードが合った場合 `// TODO` コメントを使ってください。
+ほとんどの IDEはこれらの種類のコメントを特別にサポートしているため、あなたはTODOリストをすばやく探すことが出来ます。
+
+ただし *TODO* コメントを悪いコードの言い訳にしないでください。
 
 **Bad:**
 
