@@ -2976,6 +2976,8 @@ review.review();
 
 ### Organize imports
 
+### import文を整理する
+
 With clean and easy to read import statements you can quickly see the dependencies of current code. Make sure you apply following good practices for `import` statements:
 
 - Import statements should be alphabetized and grouped.
@@ -2991,6 +2993,21 @@ With clean and easy to read import statements you can quickly see the dependenci
   - modules from a parent directory (i.e. `import foo from '../foo'; import qux from '../../foo/qux';`)
   - modules from the same or a sibling's directory (i.e. `import bar from './bar'; import baz from './bar/baz';`)
 
+わかりやすく読みやすいimport文を使用すると、現在のコードの依存関係をすばやく確認できます。
+`import` 構文には以下の良いプラクティスを必ず適用してください。
+
+- インポート文はアルファベット順に並べ、グループ化する必要があります。
+- 未使用のインポートは削除する必要があります。
+- 名前付きインポートはアルファベット順にする必要があります（例： `import {A, B, C} from 'foo';` ）
+- インポート元はグループ内でアルファベット順になっている必要があります。 例：`import * as foo from 'a'; import * as bar from 'b';`
+- importのグループは空行で区切られています。
+- importのグループは以下の順になるようにする：
+  - ポリフィル（`import 'reflect-metadata';`）
+  - NodeJSの組み込みモジュール（例： `import fs from 'fs';`）
+  - 外部モジュール（例：`import { query } from 'itiriri';`）
+  - 内部モジュール（例：`import { UserService } from 'src/services/userService';`）
+  - 親ディレクトリからのモジュール（例： `import { UserService } from 'src/services/userService';`）
+  - 同じディレクトリや兄弟ディレクトリからのモジュール（例：`import bar from './bar'; import baz from './bar/baz';`）
 
 **Bad:**
 
@@ -3023,9 +3040,15 @@ import { ConfigPlugin } from './plugins/config/configPlugin';
 
 ### Use typescript aliases
 
+### タイプスクリプトエイリアスを使用する
+
 Create prettier imports by defining the paths and baseUrl properties in the compilerOptions section in the `tsconfig.json`
 
 This will avoid long relative paths when doing imports.
+
+`tsconfig.json`の`compilerOptions`セクションで、`path`と`baseUrl`プロパティを定義するとより綺麗なimportを書くことができます。
+
+これにより、import時に長い相対パスの使用を避けることができます。
 
 **Bad:**
 
