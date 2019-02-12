@@ -1210,6 +1210,8 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 ### Use iterators and generators
 
+### イテレーターとジェネレーターを使う
+
 Use generators and iterables when working with collections of data used like a stream.  
 There are some good reasons:
 - decouples the callee from the generator implementation in a sense that callee decides how many
@@ -1217,6 +1219,14 @@ items to access
 - lazy execution, items are streamed on demand
 - built-in support for iterating items using the `for-of` syntax
 - iterables allow to implement optimized iterator patterns
+
+ストリームデータを持つコレクションを扱うときは、ジェネレーターとイテレーターを使ってください。
+いくつかの理由があります：
+
+- 呼び出し先でどの項目にアクセスするかを決めさせることで、呼び出し先とジェネレータの実装を切り離します
+- 遅延実行、アイテムはユーザーの要求毎にストリーミングされます
+- `for-of` 構文を使った組み込みの反復処理をサポートしています
+- iterables により最適化されたイテレータパターンを実装することがでるようになります
 
 **Bad:**
 
@@ -1238,6 +1248,7 @@ function print(n: number) {
 }
 
 // Print first 10 Fibonacci numbers.
+// フィボナッチ数の最初の10個をprintする
 print(10);
 ```
 
@@ -1246,6 +1257,8 @@ print(10);
 ```ts
 // Generates an infinite stream of Fibonacci numbers.
 // The generator doesn't keep the array of all numbers.
+// フィボナッチ数の無限のストリームを生成します
+// ジェネレータは全数の配列を保持しません
 function* fibonacci(): IterableIterator<number> {
   let [a, b] = [0, 1];
  
@@ -1264,12 +1277,16 @@ function print(n: number) {
 }
 
 // Print first 10 Fibonacci numbers.
+// フィボナッチ数の最初の10個をprintする
 print(10);
 ```
 
 There are libraries that allow working with iterables in a simillar way as with native arrays, by
 chaining methods like `map`, `slice`, `forEach` etc. See [itiriri](https://www.npmjs.com/package/itiriri) for
 an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables). 
+
+`map`、 `slice`、 `forEach`などのメソッドをチェーンさせることで、ネイティブの配列と同じようなイテラブルを扱うことを可能にするライブラリもあります。
+(イテラブルを使用した高度な操作の例については[itiriri](https://www.npmjs.com/package/itiriri)を参照、または非同期イテラブルの操作については [itiriri-async](https://www.npmjs.com/package/itiriri-async) を参照)
 
 ```ts
 import itiriri from 'itiriri';
