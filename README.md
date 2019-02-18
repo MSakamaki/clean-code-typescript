@@ -25,6 +25,7 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
   9. [Error Handling](#error-handling)
   10. [Formatting](#formatting)
   11. [Comments](#comments)
+  12. [Translations](#translations)
 
 ## Introduction
 
@@ -166,7 +167,7 @@ function getUser(): User;
 ### 検索可能な名前を使う
 
 <!--
-We will read more code than we will ever write. It's important that the code we do write is readable and searchable. By not naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) can help identify unnamed constants.
+We will read more code than we will ever write. It's important that the code we do write is readable and searchable. By *not* naming variables that end up being meaningful for understanding our program, we hurt our readers. Make your names searchable. Tools like [TSLint](https://palantir.github.io/tslint/rules/no-magic-numbers/) can help identify unnamed constants.
  -->
 
 私達は書いた以上のコードを読むでしょう。
@@ -855,11 +856,11 @@ console.log(name);
 ### 副作用を避ける(その２)
 
 <!--
-In JavaScript, primitives are passed by value and objects/arrays are passed by reference. In the case of objects and arrays, if your function makes a change in a shopping cart array, for example, by adding an item to purchase, then any other function that uses that cart array will be affected by this addition. That may be great, however it can be bad too. Let's imagine a bad situation:  
+In JavaScript, primitives are passed by value and objects/arrays are passed by reference. In the case of objects and arrays, if your function makes a change in a shopping cart array, for example, by adding an item to purchase, then any other function that uses that `cart` array will be affected by this addition. That may be great, however it can be bad too. Let's imagine a bad situation:  
 
-The user clicks the "Purchase", button which calls a purchase function that spawns a network request and sends the cart array to the server. Because of a bad network connection, the purchase function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because it has a reference to a shopping cart array that the *addItemToCart* function modified by adding an unwanted item.  
+The user clicks the "Purchase", button which calls a `purchase` function that spawns a network request and sends the `cart` array to the server. Because of a bad network connection, the purchase function has to keep retrying the request. Now, what if in the meantime the user accidentally clicks "Add to Cart" button on an item they don't actually want before the network request begins? If that happens and the network request begins, then that purchase function will send the accidentally added item because it has a reference to a shopping cart array that the `addItemToCart` function modified by adding an unwanted item.  
 
-A great solution would be for the *addItemToCart* to always clone the cart, edit it, and return the clone. This ensures that no other functions that are holding onto a reference of the shopping cart will be affected by any changes.  
+A great solution would be for the `addItemToCart` to always clone the `cart`, edit it, and return the clone. This ensures that no other functions that are holding onto a reference of the shopping cart will be affected by any changes.  
 
 Two caveats to mention to this approach:
 
@@ -913,7 +914,7 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 ### グローバル関数には書き込まなh
 
 <!--
-Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a diff method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
+Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a `diff` method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
  -->
 
 グローバルを汚染するのはJavaScriptのバッドプラクティスです。
@@ -1267,6 +1268,7 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 <!--
 Use generators and iterables when working with collections of data used like a stream.  
 There are some good reasons:
+
 - decouples the callee from the generator implementation in a sense that callee decides how many
 items to access
 - lazy execution, items are streamed on demand
@@ -1289,7 +1291,7 @@ function fibonacci(n: number): number[] {
   if (n === 1) return [0];
   if (n === 2) return [0, 1];
 
-  const items: number[] = [0, 1]; 
+  const items: number[] = [0, 1];
   while (items.length < n) {
     items.push(items[items.length - 2] + items[items.length - 1]);
   }
@@ -1315,7 +1317,7 @@ print(10);
 // ジェネレータは全数の配列を保持しません
 function* fibonacci(): IterableIterator<number> {
   let [a, b] = [0, 1];
- 
+
   while (true) {
     yield a;
     [a, b] = [b, a + b];
@@ -1336,9 +1338,9 @@ print(10);
 ```
 
 <!--
-There are libraries that allow working with iterables in a simillar way as with native arrays, by
+There are libraries that allow working with iterables in a similar way as with native arrays, by
 chaining methods like `map`, `slice`, `forEach` etc. See [itiriri](https://www.npmjs.com/package/itiriri) for
-an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables). 
+an example of advanced manipulation with iterables (or [itiriri-async](https://www.npmjs.com/package/itiriri-async) for manipulation of async iterables).
  -->
 
 `map`、 `slice`、 `forEach`などのメソッドをチェーンさせることで、ネイティブの配列と同じようなイテラブルを扱うことを可能にするライブラリもあります。
@@ -1376,22 +1378,22 @@ TypeScript supports getter/setter syntax.
 Using getters and setters to access data from objects that encapsulate behavior could be better that simply looking for a property on an object.
 "Why?" you might ask. Well, here's a list of reasons:
 
-* When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a *set*.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* You can lazy load your object's properties, let's say getting it from a server.
+- When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
+- Makes adding validation simple when doing a `set`.
+- Encapsulates the internal representation.
+- Easy to add logging and error handling when getting and setting.
+- You can lazy load your object's properties, let's say getting it from a server.
  -->
 
 TypeScriptはgetter/setter構文をサポートしています。
 getterとsetterを使って振る舞いをカプセル化してオブジェクトにアクセスするほうが、単純なプロパティでオブジェクトにアクセスするよいも優れている可能性があります。
 「何故？」と思われるかもしれませんが、以下がその理由の一覧です:
 
-* もしオブジェクトのプロパティを取得する以上のことをしてる場合、コード内のすべてのアクセサを調べて変更する必要がありません。
-* *set* を使うとバリデーションが追加できます。
-* 内部をカプセル化できます。
-* 値を取得や設定する時にログやエラー処理を追加するのが容易になります。
-* オブジェクトのプロパティを遅延ロードすることができるようになります、例えばサーバから値を取得する時などです。
+- もしオブジェクトのプロパティを取得する以上のことをしてる場合、コード内のすべてのアクセサを調べて変更する必要がありません。
+- *set* を使うとバリデーションが追加できます。
+- 内部をカプセル化できます。
+- 値を取得や設定する時にログやエラー処理を追加するのが容易になります。
+- オブジェクトのプロパティを遅延ロードすることができるようになります、例えばサーバから値を取得する時などです。
 
 **Bad:**
 
@@ -1402,9 +1404,9 @@ type BankAccount = {
 }
 
 const value = 100;
-const account: BankAccount = { 
+const account: BankAccount = {
   balance: 0,
-  // ... 
+  // ...
 };
 
 if (value < 0) {
@@ -1437,8 +1439,8 @@ class BankAccount {
 
 // Now `BankAccount` encapsulates the validation logic.
 // If one day the specifications change, and we need extra validation rule,
-// we would have to alter only the `setter` implementation, 
-// leaving all dependent code unchanged. 
+// we would have to alter only the `setter` implementation,
+// leaving all dependent code unchanged.
 // これで `BankAccount` はバリデーション処理をカプセル化しました。
 // ある日仕様が弁口されて、追加のバリデーションが必要になった場合にも
 // `setter`の実装だけを変更すればよく
@@ -1566,7 +1568,7 @@ interface Config {
 
 //...
 
-type Shape {
+type Shape = {
   // ...
 }
 ```
@@ -1575,11 +1577,11 @@ type Shape {
 
 ```ts
 
-type EmailConfig {
+type EmailConfig = {
   // ...
 }
 
-type DbConfig {
+type DbConfig = {
   // ...
 }
 
@@ -1785,7 +1787,7 @@ class Employee {
 
 class EmployeeTaxData {
   constructor(
-    public readonly ssn: string, 
+    public readonly ssn: string,
     public readonly salary: number) {
   }
 
@@ -2386,9 +2388,9 @@ await report = await reader.read('report.json');
 <!--
 Testing is more important than shipping. If you have no tests or an inadequate amount, then every time you ship code you won't be sure that you didn't break anything.
 Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches)
-is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a good coverage tool.
+is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a good [coverage tool](https://github.com/gotwarlost/istanbul).
 
-There's no excuse to not write tests. There are plenty of good JS test frameworks with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
+There's no excuse to not write tests. There are [plenty of good JS test frameworks](http://jstherightway.org/#testing-tools) with typings support for TypeScript, so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.  
  -->
 
 テストはリリースよりも重要です。
@@ -2397,7 +2399,7 @@ There's no excuse to not write tests. There are plenty of good JS test framework
 つまり、優れたテストフレームワークとカバレッジツールを使う必要があります。
 
 テストを書かない理由はありません。
-TypeScriptの方をサポートする優れたJSテストフレームワークはたくさんあるので、チームが好むものを見つけてください。
+TypeScriptの方をサポートする[優れたJSテストフレームワーク](http://jstherightway.org/#testing-tools)はたくさんあるので、チームが好むものを見つけてください。
 自分のチームに合ったものが見つかったら導入するすべての新しい機能やモジュールに対して常にテストを書くことを目標にします。
 もし貴方がテスト駆動開発(TDD)であるなら素晴らしいでしょう。
 しかし、重要なのは機能を動かす前や既存の機能をリファクタする前にカバレッジの目標を達成していることを確実にすることです。
@@ -2429,28 +2431,28 @@ TypeScriptの方をサポートする優れたJSテストフレームワーク�
 <!--
 Clean tests should follow the rules:
 
-* **Fast** tests should be fast because we want to run them frequently.
+- **Fast** tests should be fast because we want to run them frequently.
 
-* **Independent** tests should not depend on each other. They should provide same output whether run independently or all together in any order.
+- **Independent** tests should not depend on each other. They should provide same output whether run independently or all together in any order.
 
-* **Repeatable** tests should be repeatable in any environment and there should be no excuse for why they fail.
+- **Repeatable** tests should be repeatable in any environment and there should be no excuse for why they fail.
 
-* **Self-Validating** a test should answer with either *Passed* or *Failed*. You don't need to compare log files to answer if a test passed.
+- **Self-Validating** a test should answer with either *Passed* or *Failed*. You don't need to compare log files to answer if a test passed.
 
-* **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
+- **Timely** unit tests should be written before the production code. If you write tests after the production code, you might find writing tests too hard.
  -->
 
 綺麗なテストは以下の規則に従います：
 
-* **Fast** テストは頻繁に実行したいので早いはずです。
+- **Fast** テストは頻繁に実行したいので早いはずです。
 
-* **Independent**  テストは互いに依存してはいけません。それらは独立して実行されても任意の順番でまとめて実行されても同じ結果を返します。
+- **Independent**  テストは互いに依存してはいけません。それらは独立して実行されても任意の順番でまとめて実行されても同じ結果を返します。
 
-* **Repeatable** テストはどのような環境でも繰り返し実行可能であるべきで、何故失敗するかについての言い訳をしてはいけません。
+- **Repeatable** テストはどのような環境でも繰り返し実行可能であるべきで、何故失敗するかについての言い訳をしてはいけません。
 
-* **Self-Validating** テストは *合格* と *不合格* のどちらかしかありえません。テストに合格した場合にログファイルを比較して回答したりしないでください。
+- **Self-Validating** テストは *合格* と *不合格* のどちらかしかありえません。テストに合格した場合にログファイルを比較して回答したりしないでください。
 
-* **Timely**  単体テストはプロダクトコードの前に書かれるべきです。プロダクトコードの後にテストを書くとテストを書くのは難しくなる可能性があります。
+- **Timely**  単体テストはプロダクトコードの前に書かれるべきです。プロダクトコードの後にテストを書くとテストを書くのは難しくなる可能性があります。
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -2914,19 +2916,19 @@ TypeScriptには[TSLint](https://palantir.github.io/tslint/)という強力な�
 コードの読みやすさと保守性を劇的に向上させるのに役立つ静的分析ツールです。
 プロジェクトですぐに使えるTSLint構成です：
 
-* [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - standard style rules
+- [TSLint Config Standard](https://www.npmjs.com/package/tslint-config-standard) - standard style rules
 
-* [TSLint Config Airbnb](https://www.npmjs.com/package/tslint-config-airbnb) - Airbnb style guide
+- [TSLint Config Airbnb](https://www.npmjs.com/package/tslint-config-airbnb) - Airbnb style guide
 
-* [TSLint Clean Code](https://www.npmjs.com/package/tslint-clean-code) - TSLint rules inspired by the [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.ca/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+- [TSLint Clean Code](https://www.npmjs.com/package/tslint-clean-code) - TSLint rules inspired by the [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.ca/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 
-* [TSLint react](https://www.npmjs.com/package/tslint-react) - lint rules related to React & JSX
+- [TSLint react](https://www.npmjs.com/package/tslint-react) - lint rules related to React & JSX
 
-* [TSLint + Prettier](https://www.npmjs.com/package/tslint-config-prettier) - lint rules for [Prettier](https://github.com/prettier/prettier) code formatter
+- [TSLint + Prettier](https://www.npmjs.com/package/tslint-config-prettier) - lint rules for [Prettier](https://github.com/prettier/prettier) code formatter
 
-* [ESLint rules for TSLint](https://www.npmjs.com/package/tslint-eslint-rules) - ESLint rules for TypeScript
+- [ESLint rules for TSLint](https://www.npmjs.com/package/tslint-eslint-rules) - ESLint rules for TypeScript
 
-* [Immutable](https://www.npmjs.com/package/tslint-immutable) - rules to disable mutation in TypeScript
+- [Immutable](https://www.npmjs.com/package/tslint-immutable) - rules to disable mutation in TypeScript
 
 <!--
 Refer also to this great [TypeScript StyleGuide and Coding Conventions](https://basarat.gitbooks.io/typescript/docs/styleguide/styleguide.html) source.
@@ -2958,8 +2960,8 @@ const Artists = ['ACDC', 'Led Zeppelin', 'The Beatles'];
 function eraseDatabase() {}
 function restore_database() {}
 
-type animal { /* ... */ }
-type Container { /* ... */ }
+type animal = { /* ... */ }
+type Container = { /* ... */ }
 ```
 
 **Good:**
@@ -2974,8 +2976,8 @@ const ARTISTS = ['ACDC', 'Led Zeppelin', 'The Beatles'];
 function eraseDatabase() {}
 function restoreDatabase() {}
 
-type Animal { /* ... */ }
-type Container { /* ... */ }
+type Animal = { /* ... */ }
+type Container = { /* ... */ }
 ```
 
 <!--
@@ -3073,7 +3075,7 @@ class PerformanceReview {
 
   private lookupManager() {
     return db.lookup(this.employee, 'manager');
-  } 
+  }
 
   private getSelfReview() {
     // ...
@@ -3214,11 +3216,11 @@ The use of a comments is an indication of failure to express without them. Code 
 ### コメントではなく、自己説明的なコードを好む
 
 <!--
-Comments are an apology, not a requirement. Good code mostly documents itself.
+Comments are an apology, not a requirement. Good code *mostly* documents itself.
  -->
 
 コメントは弁明であり、必須ではありません。
-良いコードはほとんど文章のようになっています。
+良いコードは*ほとんどの場合*文章のようになっています。
 
 **Bad:**
 
@@ -3274,12 +3276,12 @@ type User = {
 ### 日付を持ったコメントはいりません
 
 <!--
-Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use git log to get history!
+Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use `git log` to get history!
  -->
 
 バージョン管理ツールを使うことを覚えましょう！
 使ってないコード、コメントアウトされたコード、日記のようなコメントは不要です。
-gitの履歴を取得するのに git log を使ってください。
+gitの履歴を取得するのに `git log` を使ってください。
 
 **Bad:**
 
@@ -3401,7 +3403,7 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 }
 ```
 
-**Good**
+**Good:**
 
 ```ts
 function getActiveSubscriptions(): Promise<Subscription[]> {
@@ -3411,3 +3413,18 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 ```
 
 **[⬆ back to top](#table-of-contents)**
+
+## Translations
+
+This is also available in other languages:
+- ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [vitorfreitas/clean-code-typescript](https://github.com/vitorfreitas/clean-code-typescript)
+
+There is work in progress for translating this to other languages:
+
+- ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) Chinese
+- ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) Japanese
+- ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) Korean
+
+References will be added once translations are completed.  
+Check this [discussion](https://github.com/labs42io/clean-code-typescript/issues/15) for more details and progress.
+You can make an indispensable contribution to *Clean Code* community by translating this to your language.
