@@ -1608,7 +1608,9 @@ class Square implements Shape {
 
 ### クラスは小さくあるべき
 
+<!--
 The class' size is measured by it's responsibility. Following the *Single Responsibility principle* a class should be small.
+-->
 
 責任の範囲によってクラスの大きさを定めます。*単一責任の原則* に従ってクラスは小さくなければいけません。
 
@@ -1655,17 +1657,23 @@ class Dashboard {
 
 ### 高凝集度と疎結合性
 
+<!--
 Cohesion defines the degree to which class members are related to each other. Ideally, all fields within a class should be used by each method.
 We then say that the class is *maximally cohesive*. In practice, this however is not always possible, nor even advisable. You should however prefer cohesion to be high.  
+-->
 
 凝集度は、クラスメンバーが互いにどの程度関連しているかを定義します。理想的には、プログラム内の全てのフィールドがクラスの各メソッドを使用できることです。
 このような状態を、クラスは *凝集度が高い* と言います。ただ、実際これは常に可能ではありませんが、可能な限り凝集度を高くすることが賢明といえます。
 
+<!--
 Coupling refers to how related or dependent are two classes toward each other. Classes are said to be low coupled if changes in one of them doesn't affect the other one.  
+-->
 
 結合度とは、2つのクラスが互いにどの程度依存しているかを指します。片方の変更がもう片方に影響しない場合、互いのクラスは疎結合と言われます。
 
+<!--
 Good software design has **high cohesion** and **low coupling**.
+-->
 
 優れたソフトウェア設計は、 *高い凝集度* と *低い結合度* を内包しています。
 
@@ -1748,11 +1756,15 @@ class UserNotifier {
 
 ### インヘリタンス(継承)よりコンポジション(合成集約)を好む
 
+<!--
 As stated famously in [Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four, you should *prefer composition over inheritance* where you can. There are lots of good reasons to use inheritance and lots of good reasons to use composition. The main point for this maxim is that if your mind instinctively goes for inheritance, try to think if composition could model your problem better. In some cases it can.  
+-->
 
 有名なGang of Four(四人組)による[デザインパターン](https://ja.wikipedia.org/wiki/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2))のように、 可能な場所では継承よりも合成集約を優先するべきです。 継承を利用する良い理由も合成集約を利用する良い理由もたくさんあります。 この章の要点は、もしあなたが本能的に継承を使うように心が動くのであれば、合成集約がその問題をよりよくモデル化できるかどうか考えてみてください。 いくつかの場合、それができます。
 
+<!--
 You might be wondering then, "when should I use inheritance?" It depends on your problem at hand, but this is a decent list of when inheritance makes more sense than composition:
+-->
 
 あなたは、「いつ継承を使うべきか？」について疑問に思うかもしれません。 それは、あなたの持つ問題次第です。ただ、これは、継承が合成集約よりも理にかなってる場合の一覧です。
 
@@ -1832,7 +1844,9 @@ class EmployeeTaxData {
 
 ### メソッドチェーンを利用すること
 
+<!--
 This pattern is very useful and commonly used in many libraries. It allows your code to be expressive, and less verbose. For that reason, use method chaining and take a look at how clean your code will be.
+-->
 
 このパターンは非常に便利なので、多くのライブラリでよく使われています。これにより、貴方のコードは表現力豊かで、冗長ではなくなります。というわけで、メソッドチェーンを使って、あなたのコードがどれくらい綺麗になるか見てください。
 
