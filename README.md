@@ -1611,7 +1611,7 @@ class Square implements Shape {
 ### クラスは小さくあるべき
 
 <!--
-The class' size is measured by it's responsibility. Following the *Single Responsibility principle* a class should be small.
+The class' size is measured by its responsibility. Following the *Single Responsibility principle* a class should be small.
 -->
 
 責任の範囲によってクラスの大きさを定めます。*単一責任の原則* に従ってクラスは小さくなければいけません。
@@ -2564,12 +2564,12 @@ describe('AwesomeDate', () => {
 
 **[⬆ back to top](#table-of-contents)**
 
-### The name of the test should reveal it's intention
+### The name of the test should reveal its intention
 
 ### テストの名前は何をしてるか、理解しやすくしましょう。
 
 <!--
-When a test fail, it's name is the first indication of what may have gone wrong.
+When a test fail, its name is the first indication of what may have gone wrong.
  -->
 
 テストが失敗した場合に、何が間違ってたが気づけるような名前が重要です。
@@ -3470,11 +3470,13 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 
 This is also available in other languages:
 - ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [vitorfreitas/clean-code-typescript](https://github.com/vitorfreitas/clean-code-typescript)
+- ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Chinese**: 
+  - [beginor/clean-code-typescript](https://github.com/beginor/clean-code-typescript)
+  - [pipiliang/clean-code-typescript](https://github.com/pipiliang/clean-code-typescript)
+- ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) **Japanese**: [MSakamaki/clean-code-typescript](https://github.com/MSakamaki/clean-code-typescript)
 
 There is work in progress for translating this to other languages:
 
-- ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) Chinese
-- ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) Japanese
 - ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) Korean
 
 References will be added once translations are completed.  
