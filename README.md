@@ -3468,17 +3468,35 @@ function getActiveSubscriptions(): Promise<Subscription[]> {
 
 ## Translations
 
+## 翻訳
+
+<!--
 This is also available in other languages:
+ -->
+
+他の言語でも見ることができます：
+
 - ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [vitorfreitas/clean-code-typescript](https://github.com/vitorfreitas/clean-code-typescript)
 - ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Chinese**: 
   - [beginor/clean-code-typescript](https://github.com/beginor/clean-code-typescript)
   - [pipiliang/clean-code-typescript](https://github.com/pipiliang/clean-code-typescript)
 - ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) **Japanese**: [MSakamaki/clean-code-typescript](https://github.com/MSakamaki/clean-code-typescript)
 
+<!--
 There is work in progress for translating this to other languages:
+ -->
+
+ 他の言語の翻訳作業も進行中です：
 
 - ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) Korean
 
+<!--
 References will be added once translations are completed.  
 Check this [discussion](https://github.com/labs42io/clean-code-typescript/issues/15) for more details and progress.
 You can make an indispensable contribution to *Clean Code* community by translating this to your language.
+ -->
+
+翻訳が完了すれば参考文献として追加されます。
+
+詳細と進捗状況はこのissuesを見てください。
+この資料をあなたの言語に翻訳をすることは、*Clean Code* コミュニティーにとって何ものにも代えがたい貢献となるでしょう。
