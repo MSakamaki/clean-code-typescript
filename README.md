@@ -234,7 +234,7 @@ Explicit is better than implicit.
  -->
 
 明示的は暗黙的より優れています。
-*Clarity is king.*
+*明快さは王様です。*
 
 **Bad:**
 
