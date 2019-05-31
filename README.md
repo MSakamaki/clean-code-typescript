@@ -323,6 +323,69 @@ function loadPages(count: number = 10) {
 
 **[⬆ back to top](#table-of-contents)**
 
+### Use enum to document the intent
+
+### 目的を明文化するために列挙型(enum)を使用する
+
+<!-- 
+Enums can help you document the intent of the code. For example when we are concerned about values being
+different rather than the exact value of those.
+ -->
+列挙型は、コードの目的を明文化するのに役立ちます。
+例えば、私達は値の正確さよりも、その値が違うものを指していないかを心配します。
+
+**Bad:**
+
+```ts
+const GENRE = {
+  ROMANTIC: 'romantic',
+  DRAMA: 'drama',
+  COMEDY: 'comedy',
+  DOCUMENTARY: 'documentary',
+}
+
+projector.configureFilm(GENRE.COMEDY);
+
+class Projector {
+  // delactation of Projector
+  // 映写機を楽しむ
+  configureFilm(genre) {
+    switch (genre) {
+      case GENRE.ROMANTIC:
+        // some logic to be executed 
+        // 実行されるいくつかのロジック
+    }
+  }
+}
+```
+
+**Good:**
+
+```ts
+enum GENRE {
+  ROMANTIC,
+  DRAMA,
+  COMEDY,
+  DOCUMENTARY,
+}
+
+projector.configureFilm(GENRE.COMEDY);
+
+class Projector {
+  // delactation of Projector
+  // 映写機を楽しむ
+  configureFilm(genre) {
+    switch (genre) {
+      case GENRE.ROMANTIC:
+        // some logic to be executed 
+        // 実行されるいくつかのロジック
+    }
+  }
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
 ## Functions
 
 ## 関数
@@ -439,7 +502,7 @@ This is by far the most important rule in software engineering. When functions d
 **Bad:**
 
 ```ts
-function emailClients(clients: Client) {
+function emailClients(clients: Client[]) {
   clients.forEach((client) => {
     const clientRecord = database.lookup(client);
     if (clientRecord.isActive()) {
@@ -452,7 +515,7 @@ function emailClients(clients: Client) {
 **Good:**
 
 ```ts
-function emailClients(clients: Client) {
+function emailClients(clients: Client[]) {
   clients.filter(isActiveClient).forEach(email);
 }
 
@@ -1326,7 +1389,7 @@ function* fibonacci(): IterableIterator<number> {
 
 function print(n: number) {
   let i = 0;
-  for (const fib in fibonacci()) {
+  for (const fib of fibonacci()) {
     if (i++ === n) break;  
     console.log(fib);
   }  
@@ -1375,7 +1438,7 @@ itiriri(fibonacci())
 
 <!--
 TypeScript supports getter/setter syntax.
-Using getters and setters to access data from objects that encapsulate behavior could be better that simply looking for a property on an object.
+Using getters and setters to access data from objects that encapsulate behavior could be better than simply looking for a property on an object.
 "Why?" you might ask. Well, here's a list of reasons:
 
 - When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
@@ -1533,6 +1596,87 @@ interface Config {
   readonly port: string;
   readonly db: string;
 }
+```
+
+<!-- 
+Case of Array, you can create a read-only array by using `ReadonlyArray<T>`.
+do not allow changes such as `push()` and `fill()`, but can use features such as `concat()` and `slice()` that do not change the value.
+ -->
+ Arrayの場合には`ReadonlyArray<T>`を使って読み取り専用の配列を作ることができます。
+`push()`や `fill()`のような変更はできませんが、値を変えない `concat()`や `slice()`と言った機能は使うことができます。
+
+**Bad:**
+
+```ts
+const array: number[] = [ 1, 3, 5 ];
+array = []; // error
+array.push(100); // array will updated
+```
+
+**Good:**
+
+```ts
+const array: ReadonlyArray<number> = [ 1, 3, 5 ];
+array = []; // error
+array.push(100); // error
+```
+
+<!-- 
+Declaring read-only arguments in [TypeScript 3.4 is a bit easier](https://github.com/microsoft/TypeScript/wiki/What's-new-in-TypeScript#improvements-for-readonlyarray-and-readonly-tuples).
+ -->
+TypeScript 3.4で読み取り専用引数を宣言するのが[少し簡単になりました](https://github.com/microsoft/TypeScript/wiki/What's-new-in-TypeScript#improvements-for-readonlyarray-and-readonly-tuples)。
+
+```ts
+function hoge(args: readonly string[]) {
+  args.push(1); // error
+}
+```
+
+<!-- 
+Prefer [const assertions](https://github.com/microsoft/TypeScript/wiki/What's-new-in-TypeScript#const-assertions) for literal values.
+ -->
+リテラル値には[const assertions](https://github.com/microsoft/TypeScript/wiki/What's-new-in-TypeScript#const-assertions)を好んで使うと良いでしょう。
+
+**Bad:**
+
+```ts
+const config = {
+  hello: 'world'
+};
+config.hello = 'world'; // value is changed
+
+const array  = [ 1, 3, 5 ];
+array[0] = 10; // value is changed
+
+// writable objects is returned
+function readonlyData(value: number) {
+  return { value };
+}
+
+const result = readonlyData(100);
+result.value = 200; // value is changed
+```
+
+**Good:**
+
+```ts
+// read-only object
+const config = {
+  hello: 'world'
+} as const;
+config.hello = 'world'; // error
+
+// read-only array
+const array  = [ 1, 3, 5 ] as const;
+array[0] = 10; // error
+
+// You can return read-only objects
+function readonlyData(value: number) {
+  return { value } as const;
+}
+
+const result = readonlyData(100);
+result.value = 200; // error
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -2103,7 +2247,7 @@ class HttpRequester {
 <!--
 This is a scary term for a very simple concept. It's formally defined as "If S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e., objects of type S may substitute objects of type T) without altering any of the desirable properties of that program (correctness, task performed, etc.)." That's an even scarier definition.  
   
-The best explanation for this is if you have a parent class and a child class, then the base class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
+The best explanation for this is if you have a parent class and a child class, then the parent class and child class can be used interchangeably without getting incorrect results. This might still be confusing, so let's take a look at the classic Square-Rectangle example. Mathematically, a square is a rectangle, but if you model it using the "is-a" relationship via inheritance, you quickly get into trouble.
  -->
 
 これは非常に単純な概念と言うには恐ろしいものです。
@@ -2704,7 +2848,7 @@ Promisesは、コードをより簡潔にするためのヘルパーメソッド
 ### Async/Await はPromisesよりも更に綺麗です
 
 <!--
-With `async`/`await` syntax you can write code that is far cleaner and more understandable that chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
+With `async`/`await` syntax you can write code that is far cleaner and more understandable than chained promises. Within a function prefixed with `async` keyword you have a way to tell the JavaScript runtime to pause the execution of code on the `await` keyword (when used on a promise).
  -->
 
 `async`/`await`構文を使うと、promiseチェーンを作るよりはるかに綺麗で理解しやすいコードを書くことが出来ます。
@@ -3210,9 +3354,11 @@ import { ConfigPlugin } from './plugins/config/configPlugin';
 
 ### タイプスクリプトエイリアスを使用する
 
+<!-- 
 Create prettier imports by defining the paths and baseUrl properties in the compilerOptions section in the `tsconfig.json`
 
 This will avoid long relative paths when doing imports.
+ -->
 
 `tsconfig.json`の`compilerOptions`セクションで、`path`と`baseUrl`プロパティを定義するとより綺麗なimportを書くことができます。
 
