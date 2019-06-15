@@ -1565,7 +1565,7 @@ class Circle {
 
 ### Prefer immutability
 
-### 普遍性を好む
+### 不変性を好む
 
 <!--
 TypeScript's type system allows you to mark individual properties on an interface / class as *readonly*. This allows you to work in a functional way (unexpected mutation is bad).  
