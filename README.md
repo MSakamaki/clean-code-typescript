@@ -2612,7 +2612,7 @@ TypeScriptの方をサポートする[優れたJSテストフレームワーク]
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
  -->
 
-### RDD３つの法則
+### TDD３つの法則
 
 1. 失敗した単体テストに合格しない限り、実コードを書くことはできません。
 
