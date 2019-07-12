@@ -635,7 +635,7 @@ function parse(tokens: Token[]): SyntaxTree {
 
 ### Remove duplicate code
 
-### 承服したコードは消す
+### 重複したコードは消す
 
 <!--
 Do your absolute best to avoid duplicate code.
@@ -753,6 +753,8 @@ You should be critical about code duplication. Sometimes there is a tradeoff bet
 **[⬆ back to top](#table-of-contents)**
 
 ### Set default objects with Object.assign or destructuring
+
+### Object.assign や 分割代入を使ってデフォルトオブジェクトを設定する
 
 **Bad:**
 
@@ -974,7 +976,7 @@ function addItemToCart(cart: CartItem[], item: Item): CartItem[] {
 
 ### Don't write to global functions
 
-### グローバル関数には書き込まなh
+### グローバル関数には書き込まない
 
 <!--
 Polluting globals is a bad practice in JavaScript because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to extend JavaScript's native Array method to have a `diff` method that could show the difference between two arrays? You could write your new function to the `Array.prototype`, but it could clash with another library that tried to do the same thing. What if that other library was just using `diff` to find the difference between the first and last elements of an array? This is why it would be much better to just use classes and simply extend the `Array` global.
@@ -2610,7 +2612,7 @@ TypeScriptの方をサポートする[優れたJSテストフレームワーク]
 3. You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
  -->
 
-### RDD３つの法則
+### TDD３つの法則
 
 1. 失敗した単体テストに合格しない限り、実コードを書くことはできません。
 
