@@ -567,7 +567,7 @@ When you have more than one level of abstraction your function is usually doing 
  -->
 
 あなたが１つ以上の抽象化を行っている時、関数はやりすぎています。
-機能を分割すれば再利用性とテスト用意性を向上させることができます。
+機能を分割すれば再利用性とテスト容易性を向上させることができます。
 
 **Bad:**
 
