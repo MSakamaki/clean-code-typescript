@@ -1451,7 +1451,7 @@ Using getters and setters to access data from objects that encapsulate behavior 
  -->
 
 TypeScriptはgetter/setter構文をサポートしています。
-getterとsetterを使って振る舞いをカプセル化してオブジェクトにアクセスするほうが、単純なプロパティでオブジェクトにアクセスするよいも優れている可能性があります。
+getterとsetterを使って振る舞いをカプセル化してオブジェクトにアクセスするほうが、単純なプロパティでオブジェクトにアクセスするよりも優れている可能性があります。
 「何故？」と思われるかもしれませんが、以下がその理由の一覧です:
 
 - もしオブジェクトのプロパティを取得する以上のことをしてる場合、コード内のすべてのアクセサを調べて変更する必要がありません。
@@ -1693,7 +1693,7 @@ For a more detailed explanation refer to this [answer](https://stackoverflow.com
  -->
 
 union や intersection が必要な場合は type を使用してください。
-extends や impliments がほしいときにはinterfaceを使います。
+extends や implements がほしいときにはinterfaceを使います。
 厳密なルールはありませんが、その時に合ったものを使ってください。
 TypeScriptの `type` と `interface` の違いについてのより詳細な説明はこちらの [回答](https://stackoverflow.com/questions/37233735/typescript-interfaces-vs-types/54101543#54101543) を参照してください。
 
