@@ -1507,7 +1507,7 @@ class BankAccount {
 // we would have to alter only the `setter` implementation,
 // leaving all dependent code unchanged.
 // これで `BankAccount` はバリデーション処理をカプセル化しました。
-// ある日仕様が弁口されて、追加のバリデーションが必要になった場合にも
+// ある日仕様が変更されて、追加のバリデーションが必要になった場合にも
 // `setter`の実装だけを変更すればよく
 // すべての依存したコードを変更する必要はありません。
 const account = new BankAccount();
