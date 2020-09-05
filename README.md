@@ -2931,8 +2931,8 @@ Promiseの場合は `reject` することができます。
 
 `Error` 型と `throw` 構文を使うようにしましょう。
 これは貴方のエラーが `catch` 構文を使ってより高いレベルのコードで補足されるかもしれないからです。
-その時に文字列でメッセージを出すのはとても混乱を招くでしょう。
-[より厄介なデバッグ](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error)
+その時に文字列でメッセージを出すのはとても混乱を招き、
+[デバッグをより厄介にする](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error)でしょう。
 同じ理由で `Error` 型の `reject` を行うべきです。
 
 **Bad:**
