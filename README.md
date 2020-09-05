@@ -419,7 +419,7 @@ This has a few advantages:
 なぜならそれは貴方の関数のテストをシンプルにするからです。
 3つ以上になると、引数ごとの数だけ違うケースをテストしなければならず、組み合わせは爆発的に増加します。
 
-理想的な引数の数は１〜２個であり、３つは避けるべきであり。
+理想的な引数の数は１〜２個であり、３つは避けるべきです。
 それ以上の数になるならば結合するべきです。
 普通は2つ以上の引数がある場合、関数がやりすぎています。
 そうでない場合は、上位のオブジェクトを引数にすれば十分です。
@@ -1083,7 +1083,7 @@ const totalOutput = contributions
 
 ### Encapsulate conditionals
 
-### 条件をカプセル化する。
+### 条件をカプセル化する
 
 **Bad:**
 
@@ -1576,7 +1576,7 @@ For more advanced scenarios there is a built-in type `Readonly` that takes a typ
 
 TypeScriptの型システムではインタフェース/クラスのプロパティに *readonly* とマークすることができます。
 これを用いると、あなたは関数型で書くことができるようになります。
-(予想外の変更が良くないものです)
+(予想外の変更は良くないものです)
 より高度なシナリオでは、組み込み型の `Readonly` があります。これは`T` 型 と map型を併用してすべてのプロパティを読み取り専用としてマークします。
 ([マップ型](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types)を参照)
 
@@ -1924,7 +1924,7 @@ You might be wondering then, "when should I use inheritance?" It depends on your
 3. You want to make global changes to derived classes by changing a base class. (Change the caloric expenditure of all animals when they move).
 -->
 
-1. 継承が「had-a」ではなくて「is-a」を表している場合(人間は動物である と 人は属性情報を含んでいる)
+1. 継承が「has-a」ではなくて「is-a」を表している場合(人間は動物である と 人は属性情報を含んでいる)
 
 2. 基底クラスからコードを再利用できる(人は動物のように動くことができる)
 
@@ -2150,7 +2150,7 @@ class UserSettings {
 As stated by Bertrand Meyer, "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification." What does that mean though? This principle basically states that you should allow users to add new functionalities without changing existing code.
  -->
 
-Bertrand Meyer 氏曰く、「ソフトウェアの関連(クラス。モジュール、関数など)は拡張のために開かれているべきですが、変更のためには閉じられているべき」と言われています。
+Bertrand Meyer 氏曰く、「ソフトウェアの関連(クラス、モジュール、関数など)は拡張のために開かれているべきですが、変更のためには閉じられているべき」と言われています。
 これはどういう意味かというと、この原則は基本的に、既存のコードを変更せずにユーザーが新しい機能を追加できるようにするべきと言う意味です。
 
 **Bad:**
@@ -2379,7 +2379,7 @@ ISP states that "Clients should not be forced to depend upon interfaces that the
 What it really means is that you should always design your abstractions in a way that the clients that are using the exposed methods do not get the whole pie instead. That also include imposing the clients with the burden of implementing methods that they don’t actually need.
  -->
 
-ISPでは「クライアントは彼らが利用していないインタフェースへの依存を共用してはならない」と述べられています。
+ISPでは「クライアントは彼らが利用していないインタフェースへの依存を強要してはならない」と述べられています。
 この原則は、単一責任原則と非常に密接な関係にあります。
 これが本当に意味することは、公開されたメソッドを使用しているクライアントが、すべてのパイを取得しないよう抽象化を常に設計する必要があるという事です。
 これは実際には必要としないメソッドを実装するという負荷をクライアント側に課す事も含まれます。
@@ -2718,7 +2718,7 @@ describe('AwesomeDate', () => {
 When a test fail, its name is the first indication of what may have gone wrong.
  -->
 
-テストが失敗した場合に、何が間違ってたが気づけるような名前が重要です。
+テストが失敗した場合に、何が間違ってたか気づけるような名前が重要です。
 
 **Bad:**
 
@@ -2766,7 +2766,7 @@ There are utilities that transform existing functions using the callback style t
 
 コールバックは綺麗では無く、過度のネスト(*コールバック地獄*)を引き起こします。
 コールバックスタイルの既存関数をPromiseスタイルに変更するユーティリティがあります。
-Node.js に関しては  [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original)、一般的にな目的には [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify)
+Node.js に関しては  [`util.promisify`](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original)、一般的な目的には [pify](https://www.npmjs.com/package/pify), [es6-promisify](https://www.npmjs.com/package/es6-promisify)
 
 **Bad:**
 
@@ -2930,7 +2930,7 @@ JavaScriptとTypeScriptは任意のオブジェクトを `throw` できます。
 Promiseの場合は `reject` することができます。
 
 `Error` 型と `throw` 構文を使うようにしましょう。
-これは貴方のエラーが `catch` 構文を使ってより高いレベルのコードで補足されるかもしれないからです。
+これは貴方のエラーが `catch` 構文を使ってより高いレベルのコードで捕捉されるかもしれないからです。
 その時に文字列でメッセージを出すのはとても混乱を招くでしょう。
 [より厄介なデバッグ](https://basarat.gitbooks.io/typescript/docs/types/exceptions.html#always-use-error)
 同じ理由で `Error` 型の `reject` を行うべきです。
@@ -3009,7 +3009,7 @@ Doing nothing with a caught error doesn't give you the ability to ever fix or re
  -->
 
 捉えられた例外に対して何もしないというのは、例外が発生しても例外を発見したり、修正することができなくなります。
-コンソール (`console.log`)にエラーを表示するのは、頻繁にコーンソール表示の海に溺れてしまうためあまり良いことではありません。
+コンソール (`console.log`)にエラーを表示するのは、頻繁にコンソール表示の海に溺れてしまうためあまり良いことではありません。
 コードの一部でも `try/catch` で囲むとそこでエラーが発生する可能性があり、発生したエラーに備えた計画を立て、例外が発生したときのコードパスを作る必要があります。
 
 **Bad:**
@@ -3190,7 +3190,7 @@ Prefer using `camelCase` for variables, functions and class members.
 
 ### Function callers and callees should be close
 
-### 関数の呼び出し元と定義は近いはずです。
+### 関数の呼び出し元と定義は近いはずです
 
 <!--
 If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee.
@@ -3518,8 +3518,6 @@ Most IDE support code folding feature that allows you to collapse/expand blocks 
 
 これは単純にノイズです。
 関数と変数名を適切なインデント、フォーマットで使用して、コードの視覚的な構造を持ちましょう。
-これは単純にノイズです。
-関数と変数名を適切なインデント、フォーマットで使用して、コードの視覚的な構造を持ちましょう。
 ほとんどのIDEはコードの折りたたみ機能をサポートしているので、コードブロックを折りたたむ／展開することができます。(Visual Studio Code [folding regions](https://code.visualstudio.com/updates/v1_17#_folding-regions)を参照).
 
 **Bad:**
@@ -3589,7 +3587,7 @@ you can quickly go over the entire list of todos.
 Keep in mind however that a *TODO* comment is not an excuse for bad code. 
  -->
 
-後で改善が必要と思われるコードが合った場合 `// TODO` コメントを使ってください。
+後で改善が必要と思われるコードがあった場合 `// TODO` コメントを使ってください。
 ほとんどの IDEはこれらの種類のコメントを特別にサポートしているため、あなたはTODOリストをすばやく探すことが出来ます。
 
 ただし *TODO* コメントを悪いコードの言い訳にしないでください。
